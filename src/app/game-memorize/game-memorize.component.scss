@@ -1,0 +1,160 @@
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+$card-margin-small: 5px;
+$card-margin-large: 8px;
+
+@mixin game-memorize-layout($wrap-width) {
+    .layout {
+        max-width: $wrap-width;
+    }
+}
+
+@mixin game-memorize-layout-card($count, $width, $height, $clock-size) {
+    .count-#{$count} {
+        app-card {
+            @include size($width, $height);
+        }
+
+        app-clock-face {
+            @include size($clock-size);
+        }
+    }
+}
+
+section.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+app-card {
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@include for-viewports($small) {
+    app-card {
+        margin: 5px;
+    }
+}
+
+@include for-viewports($large) {
+    app-card {
+        margin: 8px;
+    }
+}
+
+@include for-viewports($phone-landscape) {
+    @include game-memorize-layout(650px);
+
+    @include game-memorize-layout-card(1, 640px, 140px, 112px);
+    @include game-memorize-layout-card(2, 315px, 140px, 112px);
+    @include game-memorize-layout-card(4, 152px, 140px, 98px);
+}
+
+@include for-viewports($phone-portrait) {
+    @include game-memorize-layout(336px);
+
+    @include game-memorize-layout-card(1, 326px, 394px, 194px);
+    @include game-memorize-layout-card(2, 326px, 192px, 144px);
+    @include game-memorize-layout-card(4, 158px, 192px, 106px);
+}
+
+@include for-viewports($phone-plus-landscape) {
+    @include game-memorize-layout(760px);
+
+    @include game-memorize-layout-card(1, 750px, 186px, 150px);
+    @include game-memorize-layout-card(2, 370px, 186px, 150px);
+    @include game-memorize-layout-card(4, 180px, 186px, 120px);
+}
+
+@include for-viewports($phone-plus-portrait) {
+    @include game-memorize-layout(390px);
+
+    @include game-memorize-layout-card(1, 380px, 510px, 224px);
+    @include game-memorize-layout-card(2, 380px, 250px, 174px);
+    @include game-memorize-layout-card(4, 185px, 250px, 124px);
+}
+
+@include for-viewports($tablet-landscape) {
+    @include game-memorize-layout(864px);
+
+    @include game-memorize-layout-card(1, 854px, 340px, 250px);
+    @include game-memorize-layout-card(2, 422px, 340px, 250px);
+    @include game-memorize-layout-card(4, 206px, 340px, 146px);
+}
+
+@include for-viewports($tablet-portrait) {
+    @include game-memorize-layout(472px);
+
+    @include game-memorize-layout-card(1, 462px, 742px, 280px);
+    @include game-memorize-layout-card(2, 462px, 366px, 250px);
+    @include game-memorize-layout-card(4, 226px, 366px, 160px);
+}
+
+@include for-viewports($tablet-plus-landscape) {
+    @include game-memorize-layout(944px);
+
+    @include game-memorize-layout-card(1, 928px, 490px, 300px);
+    @include game-memorize-layout-card(2, 456px, 490px, 260px);
+    @include game-memorize-layout-card(4, 456px, 237px, 176px);
+}
+
+@include for-viewports($tablet-plus-portrait) {
+    @include game-memorize-layout(612px);
+
+    @include game-memorize-layout-card(1, 596px, 816px, 300px);
+    @include game-memorize-layout-card(2, 596px, 400px, 260px);
+    @include game-memorize-layout-card(4, 290px, 400px, 200px);
+}
+
+@include for-viewports($desktop-minimum) {
+    @include game-memorize-layout(440px);
+
+    @include game-memorize-layout-card(1, 430px, 94px, 76px);
+    @include game-memorize-layout-card(2, 210px, 94px, 76px);
+    @include game-memorize-layout-card(4, 100px, 94px, 62px);
+}
+
+@include for-viewports($desktop-small) {
+    @include game-memorize-layout(584px);
+
+    @include game-memorize-layout-card(1, 574px, 294px, 210px);
+    @include game-memorize-layout-card(2, 282px, 294px, 200px);
+    @include game-memorize-layout-card(4, 282px, 142px, 110px);
+}
+
+@include for-viewports($desktop-reduced) {
+    @include game-memorize-layout(816px);
+
+    @include game-memorize-layout-card(1, 800px, 400px, 300px);
+    @include game-memorize-layout-card(2, 392px, 400px, 260px);
+    @include game-memorize-layout-card(4, 392px, 192px, 140px);
+}
+
+@include for-viewports($desktop) {
+    @include game-memorize-layout(1204px);
+
+    @include game-memorize-layout-card(1, 1188px, 554px, 380px);
+    @include game-memorize-layout-card(2, 586px, 554px, 330px);
+    @include game-memorize-layout-card(4, 586px, 269px, 200px);
+}
+
+@include for-viewports($desktop-hd, $desktop-4k) {
+    @include game-memorize-layout(1352px);
+
+    @include game-memorize-layout-card(1, 1336px, 644px, 380px);
+    @include game-memorize-layout-card(2, 660px, 644px, 380px);
+    @include game-memorize-layout-card(4, 660px, 314px, 250px);
+}

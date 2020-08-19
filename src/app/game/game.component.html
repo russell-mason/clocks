@@ -1,0 +1,14 @@
+<ng-container [ngSwitch]="currentGameStage$ | async">
+
+    <app-game-pending *ngSwitchCase="GameStage.pending" (next)="startCommitToMemoryCountdown()">
+    </app-game-pending>
+
+    <app-game-memorize *ngSwitchCase="GameStage.commitToMemoryCountdown" (next)="startRecallCountdown()">
+    </app-game-memorize>
+
+    <app-game-recall *ngSwitchCase="GameStage.recallCountdown" (next)="score()"></app-game-recall>
+
+    <app-scores *ngSwitchCase="GameStage.timedOut" [showTimeoutMessage]="true"></app-scores>
+    <app-scores *ngSwitchCase="GameStage.complete" [showTimeoutMessage]="false"></app-scores>
+
+</ng-container>

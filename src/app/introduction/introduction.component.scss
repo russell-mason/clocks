@@ -1,0 +1,126 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/viewports' as *;
+@use 'src/styles/global-viewports' as *;
+
+@include global-styles;
+
+section.content section.help {
+    h2 {
+        color: $secondary-background-color;
+    }
+
+    img {
+        filter: drop-shadow(4px 4px 4px $shadow-color);
+    }
+
+    app-options-card {
+        h3 {
+            margin: 0;
+            color: $secondary-background-color;
+        }
+
+        h4 {
+            color: $secondary-background-color-soften;
+        }
+
+        ul {
+            list-style-type: square;
+        }
+    }
+}
+
+.light-dark-image,
+.am-pm-image,
+.second-hand-image {
+    // original 710px x 305px
+    width: 237px;
+    height: 102px;
+}
+
+.number-of-clocks-image {
+    // original 657px x 316px
+    width: 219px;
+    height: 105px;
+}
+
+.markers-image {
+    // original 739px x 305px
+    width: 246px;
+    height: 102px;
+}
+
+.help-countdown-image {
+    // original 522px x 146px
+    width: 174px;
+    height: 49px;
+}
+
+@include for-viewports($small) {
+    section.content section.help {
+        h2 {
+            font-size: 1.35rem;
+            margin-top: 1.5rem;
+        }
+
+        app-options-card {
+            margin-top: 1.5rem;
+
+            div.card-content div {
+                margin: 8px 0 24px 0;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+            }
+
+            h4 {
+                margin: 1.1rem 0 0 0;
+            }
+
+            p,
+            li {
+                font-size: 1.15rem;
+                line-height: 1.25;
+            }
+
+            p {
+                margin: 10px 0 17px 0;
+            }
+        }
+    }
+}
+
+@include for-viewports($large) {
+    section.content section.help {
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 2rem;
+        }
+
+        app-options-card {
+            margin-top: 1.8rem;
+
+            div.card-content div {
+                margin: 10px 0 32px 0;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            h4 {
+                margin: 1.3rem 0 0 0;
+            }
+
+            p,
+            li {
+                font-size: 1.3rem;
+                line-height: 1.4;
+            }
+
+            p {
+                margin: 12px 0 20px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@use 'src/styles/fonts' as *;
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+:host {
+    display: block;
+    position: relative;
+    border: 1px solid $card-border-color;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+
+    &.selected {
+        border: 1px solid $secondary-background-color;
+        transition: background-color 0.2s;
+
+        .card-index {
+            background-color: $secondary-background-color;
+        }
+    }
+}
+
+.card-index {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    display: inline-block;
+    padding: 0.15rem 0.8rem 0.25rem 0.7rem;
+    border-radius: 0 1rem 1rem 0;
+    color: $card-index-color;
+    background-color: $card-border-color;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+:host-context(.light) {
+    &.selected {
+        background-color: $card-background-color;
+    }
+}
+
+:host-context(.dark) {
+    &.selected {
+        background-color: $card-background-color-dark;
+    }
+}
+
+@include for-viewports($phone-landscape, $phone-plus-landscape) {
+    .card-index {
+        top: 11px;
+    }
+}
+
+@include for-viewports($desktop-minimum) {
+    .card-index {
+        top: 5px;
+    }
+}

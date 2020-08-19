@@ -1,0 +1,225 @@
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+:host {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.guide {
+    position: relative;
+    box-sizing: border-box;
+
+    .for {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-family: verdana;
+        font-size: 0.65rem;
+        color: #222222;
+        width: 125px;
+        padding: 2px 4px;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .desktop-minimum,
+    .desktop-small,
+    .desktop-reduced,
+    .desktop,
+    .desktop-hd,
+    .desktop-4k,
+    .phone-landscape,
+    .phone-plus-landscape,
+    .tablet-landscape,
+    .tablet-plus-landscape,
+    .phone-portrait,
+    .phone-plus-portrait,
+    .tablet-portrait,
+    .tablet-plus-portrait {
+        display: none;
+    }
+}
+
+@include for-viewports($phones) {
+    .guide {
+        background-color: #00ff0038;
+        border: 2px solid #00ff00;
+
+        .for {
+            background-color: #9eff9e;
+            border: 1px solid #8bfa8b;
+        }
+    }
+}
+
+@include for-viewports($tablets) {
+    .guide {
+        background-color: #0000ff38;
+        border: 2px solid #0000ff;
+
+        .for {
+            background-color: #9e9eff;
+            border: 1px solid #8b8bfa;
+        }
+    }
+}
+
+@include for-viewports($desktops) {
+    .guide {
+        background-color: #ff000038;
+        border: 2px solid #ff0000;
+
+        .for {
+            background-color: #ff9e9e;
+            border: 1px solid #fa8b8b;
+        }
+    }
+}
+
+@include for-viewports($phone-landscape) {
+    .guide {
+        @include size(670px, 280px);
+
+        .phone-landscape {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($phone-portrait) {
+    .guide {
+        @include size(360px, 540px);
+
+        .phone-portrait {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($phone-plus-landscape) {
+    .guide {
+        @include size(790px, 330px);
+
+        .phone-plus-landscape {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($phone-plus-portrait) {
+    .guide {
+        @include size(410px, 660px);
+
+        .phone-plus-portrait {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($tablet-landscape) {
+    .guide {
+        @include size(930px, 530px);
+
+        .tablet-landscape {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($tablet-portrait) {
+    .guide {
+        @include size(530px, 930px);
+
+        .tablet-portrait {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($tablet-plus-landscape) {
+    .guide {
+        @include size(1080px, 750px);
+
+        .tablet-plus-landscape {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($tablet-plus-portrait) {
+    .guide {
+        @include size(750px, 1080px);
+
+        .tablet-plus-portrait {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($desktop-minimum) {
+    .guide {
+        @include size(460px, 224px);
+
+        .desktop-minimum {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($desktop-small) {
+    .guide {
+        @include size(640px, 460px);
+
+        .desktop-small {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($desktop-reduced) {
+    .guide {
+        @include size(960px, 650px);
+
+        .desktop-reduced {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($desktop) {
+    .guide {
+        @include size(1350px, 830px);
+
+        .desktop {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($desktop-hd) {
+    .guide {
+        @include size(1900px, 910px);
+
+        .desktop-hd {
+            display: block;
+        }
+    }
+}
+
+@include for-viewports($desktop-4k) {
+    .guide {
+        @include size(3800px, 2010px);
+
+        .desktop-4k {
+            display: block;
+        }
+    }
+}

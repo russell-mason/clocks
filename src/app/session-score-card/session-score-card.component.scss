@@ -1,0 +1,127 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/viewports' as *;
+
+@mixin session-score-layout-six-by-one {
+    app-card {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+@mixin session-score-layout-three-by-two {
+    app-card {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@mixin session-score-lighten($from, $to) {
+    background: linear-gradient(
+        0,
+        lighten($primary-background-color, $from) 10%,
+        lighten($primary-background-color, $to) 90%
+    );
+}
+
+@mixin session-score-darken($from, $to) {
+    background: linear-gradient(
+        0,
+        darken($primary-background-color, $from) 10%,
+        darken($primary-background-color, $to) 90%
+    );
+}
+
+:host {
+    display: block;
+}
+
+app-card {
+    display: grid;
+    padding: 4px;
+}
+
+.score {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff;
+    text-align: center;
+    margin: 4px;
+    padding: 0.6rem;
+
+    p {
+        margin: 0.08rem 0 0 0;
+
+        &.score-value {
+            font-weight: bold;
+        }
+    }
+}
+
+.total-score {
+    @include session-score-lighten(5%, 0%);
+}
+
+.games-played {
+    @include session-score-darken(5%, 10%);
+}
+
+.clocks-displayed {
+    @include session-score-darken(5%, 10%);
+}
+
+.correct {
+    @include session-score-darken(10%, 15%);
+}
+
+.partially-correct {
+    @include session-score-darken(10%, 15%);
+}
+
+.incorrect {
+    @include session-score-darken(10%, 15%);
+}
+
+@include for-viewports($small) {
+    .score p {
+        font-size: 0.8rem;
+
+        &.score-value {
+            margin-top: 4px;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@include for-viewports($large) {
+    .score p {
+        font-size: 1.1rem;
+
+        &.score-value {
+            margin-top: 4px;
+            font-size: 2.3rem;
+        }
+    }
+}
+
+@include for-viewports(
+    $phone-portrait,
+    $phone-plus-portrait,
+    $tablet-portrait,
+    $tablet-plus-portrait,
+    $desktop-minimum,
+    $desktop-small
+) {
+    @include session-score-layout-three-by-two;
+}
+
+@include for-viewports(
+    $phone-landscape,
+    $phone-plus-landscape,
+    $tablet-landscape,
+    $tablet-plus-landscape,
+    $desktop-reduced,
+    $desktop,
+    $desktop-hd,
+    $desktop-4k
+) {
+    @include session-score-layout-six-by-one;
+}

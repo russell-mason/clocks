@@ -1,0 +1,13 @@
+@use 'fonts' as *;
+@use 'font-face-segoeuil' as *;
+@use 'font-face-segoeui' as *;
+
+@font-face {
+    font-family: $light-font;
+    src: url($segoeuil-data) format('woff');
+}
+
+@font-face {
+    font-family: $regular-font;
+    src: url($segoeui-data) format('woff');
+}

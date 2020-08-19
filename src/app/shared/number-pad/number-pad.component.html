@@ -1,0 +1,25 @@
+<div class="layout" tabIndex="0">
+    <div class="display" [class.displayValueAccepted]="displayValueAccepted">
+        <div class="text">{{displayValue}}&nbsp;</div>
+    </div>
+
+    <button tabIndex="-1" (click)="onNumberClick(1)" [class.disabled]="!isEnabled">1</button>
+    <button tabIndex="-1" (click)="onNumberClick(2)" [class.disabled]="!isEnabled">2</button>
+    <button tabIndex="-1" (click)="onNumberClick(3)" [class.disabled]="!isEnabled">3</button>
+
+    <button tabIndex="-1" (click)="onNumberClick(4)" [class.disabled]="!isEnabled">4</button>
+    <button tabIndex="-1" (click)="onNumberClick(5)" [class.disabled]="!isEnabled">5</button>
+    <button tabIndex="-1" (click)="onNumberClick(6)" [class.disabled]="!isEnabled">6</button>
+
+    <button tabIndex="-1" (click)="onNumberClick(7)" [class.disabled]="!isEnabled">7</button>
+    <button tabIndex="-1" (click)="onNumberClick(8)" [class.disabled]="!isEnabled">8</button>
+    <button tabIndex="-1" (click)="onNumberClick(9)" [class.disabled]="!isEnabled">9</button>
+
+    <button class="function-key clear" tabIndex="-1" (click)="clear()">C</button>
+    <button tabIndex="-1" (click)="onNumberClick(0)" [class.disabled]="!isEnabled">0</button>
+    <button class="function-key backspace" tabIndex="-1" (click)="backspace()">
+        <svg>
+            <use href="#backspace-icon"></use>
+        </svg>
+    </button>
+</div>

@@ -1,0 +1,48 @@
+@use 'font-faces' as *;
+@use 'fonts' as *;
+@use 'colors' as *;
+@use 'sizes' as *;
+
+body {
+    font-family: $light-font;
+    margin: 0;
+    padding: 0;
+    color: $default-color;
+    background-color: $default-background-color;
+}
+
+.dark {
+    color: $default-color-dark;
+    background-color: $default-background-color-dark;
+}
+
+.page {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+section.content {
+    flex: 1;
+
+    overflow: auto;
+    padding: 0;
+
+    &.default-padding {
+        padding: 0.7rem $page-margin-sides;
+    }
+
+    p {
+        font-size: 1.15rem;
+    }
+}
+
+svg {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+}

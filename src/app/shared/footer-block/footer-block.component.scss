@@ -1,0 +1,35 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+:host {
+    z-index: 99;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    padding: 0.6rem $page-margin-sides;
+    background-color: $primary-background-color;
+    filter: drop-shadow(0 -4px 4px $shadow-color);
+
+    h1 {
+        flex-grow: 1;
+        align-self: center;
+        color: $primary-color;
+        margin: -3px 0 0 0;
+        font-size: 1.35rem;
+        font-weight: normal;
+    }
+}
+
+@include for-viewports($large) {
+    footer {
+        padding: 1.1rem $page-margin-sides-large 0.9rem $page-margin-sides-large;
+
+        h1 {
+            font-size: 1.6rem;
+        }
+    }
+}

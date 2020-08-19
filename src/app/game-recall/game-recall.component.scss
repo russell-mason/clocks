@@ -1,0 +1,238 @@
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+@mixin game-recall-layout($wrap-width) {
+    .cards-layout {
+        max-width: $wrap-width;
+    }
+}
+
+@mixin game-recall-layout-card-no-clock($count, $width, $height, $font-size, $margin-offset) {
+    // Hide clock and clear margin when no clock size given so text is centred correctly
+    .count-#{$count} {
+        app-card {
+            @include size($width, $height);
+        }
+
+        app-clock-face {
+            display: none;
+        }
+
+        p.time {
+            margin: 0 0 0 $margin-offset;
+            font-size: $font-size;
+        }
+    }
+}
+
+@mixin game-recall-layout-card($count, $width, $height, $clock-size, $font-size) {
+    .count-#{$count} {
+        app-card {
+            @include size($width, $height);
+        }
+
+        app-clock-face {
+            @include size($clock-size);
+        }
+
+        p.time {
+            margin: calc(#{$font-size} * 0.35) 0 0 0;
+            font-size: $font-size;
+        }
+    }
+}
+
+@mixin game-recall-layout-number-pad($width, $height, $font-size) {
+    app-number-pad {
+        width: $width;
+        height: $height;
+        font-size: $font-size;
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+app-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .clock-time {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    p.time {
+        text-align: center;
+    }
+}
+
+@include for-viewports($small) {
+    app-card {
+        margin: 5px;
+    }
+
+    app-number-pad {
+        margin: 5px;
+    }
+}
+
+@include for-viewports($large) {
+    app-card {
+        margin: 8px;
+    }
+
+    app-number-pad {
+        margin: 8px;
+    }
+}
+
+@include for-viewports($phone-landscape) {
+    @include game-recall-layout(440px);
+
+    @include game-recall-layout-card(1, 440px, 140px, 90px, 1.1rem);
+    @include game-recall-layout-card(2, 210px, 140px, 90px, 1.1rem);
+    @include game-recall-layout-card(4, 100px, 140px, 64px, 1.1rem);
+
+    @include game-recall-layout-number-pad(200px, 140px, 0.85rem);
+}
+
+@include for-viewports($phone-portrait) {
+    @include game-recall-layout(336px);
+
+    @include game-recall-layout-card(1, 326px, 222px, 132px, 1.5rem);
+    @include game-recall-layout-card(2, 158px, 222px, 110px, 1.35rem);
+    @include game-recall-layout-card(4, 158px, 106px, 66px, 1.05rem);
+
+    @include game-recall-layout-number-pad(326px, 162px, 1rem);
+}
+
+@include for-viewports($phone-plus-landscape) {
+    @include game-recall-layout(520px);
+
+    @include game-recall-layout-card(1, 520px, 186px, 120px, 1.35rem);
+    @include game-recall-layout-card(2, 250px, 186px, 120px, 1.35rem);
+    @include game-recall-layout-card(4, 120px, 186px, 82px, 1.2rem);
+
+    @include game-recall-layout-number-pad(230px, 186px, 1.1rem);
+}
+
+@include for-viewports($phone-plus-portrait) {
+    @include game-recall-layout(390px);
+
+    @include game-recall-layout-card(1, 380px, 300px, 190px, 1.8rem);
+    @include game-recall-layout-card(2, 185px, 300px, 130px, 1.5rem);
+    @include game-recall-layout-card(4, 185px, 145px, 92px, 1.25rem);
+
+    @include game-recall-layout-number-pad(380px, 200px, 1.2rem);
+}
+
+@include for-viewports($tablet-landscape) {
+    @include game-recall-layout(614px);
+
+    @include game-recall-layout-card(1, 614px, 340px, 220px, 2rem);
+    @include game-recall-layout-card(2, 297px, 340px, 192px, 1.8rem);
+    @include game-recall-layout-card(4, 297px, 165px, 106px, 1.4rem);
+
+    @include game-recall-layout-number-pad(240px, 340px, 1.4rem);
+}
+
+@include for-viewports($tablet-portrait) {
+    @include game-recall-layout(472px);
+
+    @include game-recall-layout-card(1, 462px, 502px, 250px, 2.2rem);
+    @include game-recall-layout-card(2, 462px, 246px, 150px, 1.9rem);
+    @include game-recall-layout-card(4, 226px, 246px, 138px, 1.5rem);
+
+    @include game-recall-layout-number-pad(462px, 230px, 1.2rem);
+}
+
+@include for-viewports($tablet-plus-landscape) {
+    @include game-recall-layout(628px);
+
+    @include game-recall-layout-card(1, 628px, 490px, 290px, 2.7rem);
+    @include game-recall-layout-card(2, 298px, 490px, 210px, 2.5rem);
+    @include game-recall-layout-card(4, 298px, 237px, 140px, 2rem);
+
+    @include game-recall-layout-number-pad(300px, 490px, 1.8rem);
+}
+
+@include for-viewports($tablet-plus-portrait) {
+    @include game-recall-layout(612px);
+
+    @include game-recall-layout-card(1, 596px, 540px, 290px, 2.7rem);
+    @include game-recall-layout-card(2, 290px, 540px, 210px, 2.5rem);
+    @include game-recall-layout-card(4, 290px, 262px, 140px, 2rem);
+
+    @include game-recall-layout-number-pad(602px, 260px, 1.5rem);
+}
+
+@include for-viewports($desktop-minimum) {
+    @include game-recall-layout(250px);
+
+    @include game-recall-layout-card-no-clock(1, 250px, 94px, 1.8rem, 0);
+    @include game-recall-layout-card-no-clock(2, 250px, 42px, 1.4rem, 25px);
+    @include game-recall-layout-card-no-clock(4, 115px, 42px, 1rem, 25px);
+
+    @include game-recall-layout-number-pad(180px, 94px, 0.6rem);
+}
+
+@include for-viewports($desktop-small) {
+    @include game-recall-layout(374px);
+
+    @include game-recall-layout-card(1, 374px, 294px, 190px, 1.8rem);
+    @include game-recall-layout-card(2, 177px, 294px, 130px, 1.5rem);
+    @include game-recall-layout-card(4, 177px, 142px, 92px, 1.25rem);
+
+    @include game-recall-layout-number-pad(200px, 294px, 1rem);
+}
+
+@include for-viewports($desktop-reduced) {
+    @include game-recall-layout(520px);
+
+    @include game-recall-layout-card(1, 520px, 400px, 240px, 2.6rem);
+    @include game-recall-layout-card(2, 244px, 400px, 170px, 2.2rem);
+    @include game-recall-layout-card(4, 244px, 192px, 110px, 1.5rem);
+
+    @include game-recall-layout-number-pad(280px, 400px, 1.4rem);
+}
+
+@include for-viewports($desktop) {
+    @include game-recall-layout(888px);
+
+    @include game-recall-layout-card(1, 888px, 554px, 290px, 2.7rem);
+    @include game-recall-layout-card(2, 428px, 554px, 250px, 2.6rem);
+    @include game-recall-layout-card(4, 428px, 269px, 160px, 2rem);
+
+    @include game-recall-layout-number-pad(300px, 554px, 1.8rem);
+}
+
+@include for-viewports($desktop-hd, $desktop-4k) {
+    @include game-recall-layout(1036px);
+
+    @include game-recall-layout-card(1, 1036px, 644px, 340px, 3rem);
+    @include game-recall-layout-card(2, 502px, 644px, 290px, 2.8rem);
+    @include game-recall-layout-card(4, 502px, 314px, 190px, 2.3rem);
+
+    @include game-recall-layout-number-pad(300px, 644px, 2rem);
+}

@@ -1,0 +1,85 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+$svg-button-icon-size: 36px;
+$svg-button-icon-size-large: 56px;
+
+:host {
+    display: inline-block;
+    position: relative;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:focus,
+    &:active {
+        outline: 1px solid $focus-color;
+    }
+
+    &:hover {
+        .svg-button {
+            transform: scale(1.05);
+            transition: transform 0.2s;
+            filter: drop-shadow(4px 4px 2px $shadow-color);
+
+            &:active {
+                transform: scale(0.95);
+                filter: drop-shadow(2px 2px 2px $shadow-color);
+            }
+        }
+    }
+
+    .svg-button {
+        display: grid;
+        justify-content: center;
+        transition: transform 0.2s;
+
+        svg {
+            grid-row: 1;
+            grid-column: 1;
+
+            width: $svg-button-icon-size;
+            height: $svg-button-icon-size;
+
+            &.svg-icon-background {
+                fill: $primary-background-color;
+                filter: drop-shadow(3px 3px 2px $shadow-color);
+            }
+
+            &.svg-icon {
+                z-index: 1;
+                fill: $primary-color;
+            }
+        }
+    }
+
+    p.caption {
+        grid-row: 2;
+        grid-column: 1;
+
+        font-size: 0.9rem;
+        margin: 0.13rem 0 -0.15rem 0;
+        color: $primary-color;
+        text-align: center;
+    }
+}
+
+@include for-viewports($large) {
+    button {
+        .svg-button {
+            svg {
+                width: $svg-button-icon-size-large;
+                height: $svg-button-icon-size-large;
+            }
+        }
+
+        p.caption {
+            font-size: 1.1rem;
+            margin: 0.25rem 0 -0.2rem 0;
+        }
+    }
+}

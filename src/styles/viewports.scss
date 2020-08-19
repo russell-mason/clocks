@@ -1,0 +1,32 @@
+// See TrackViewportDirective (src/app/shared/directives/track-viewport.directive.ts) for implementation
+
+$phone-landscape: '.viewport-phone-landscape';
+$phone-portrait: '.viewport-phone-portrait';
+$phone-plus-landscape: '.viewport-phone-plus-landscape';
+$phone-plus-portrait: '.viewport-phone-plus-portrait';
+$phones: $phone-landscape, $phone-portrait, $phone-plus-landscape, $phone-plus-portrait;
+
+$tablet-portrait: '.viewport-tablet-portrait';
+$tablet-landscape: '.viewport-tablet-landscape';
+$tablet-plus-portrait: '.viewport-tablet-plus-portrait';
+$tablet-plus-landscape: '.viewport-tablet-plus-landscape';
+$tablets: $tablet-portrait, $tablet-landscape, $tablet-plus-portrait, $tablet-plus-landscape;
+
+$desktop-minimum: '.viewport-desktop-minimum';
+$desktop-small: '.viewport-desktop-small';
+$desktop-reduced: '.viewport-desktop-reduced';
+$desktop: '.viewport-desktop';
+$desktop-hd: '.viewport-desktop-hd';
+$desktop-4k: '.viewport-desktop-4k';
+$desktops: $desktop-minimum, $desktop-small, $desktop-reduced, $desktop, $desktop-hd, $desktop-4k;
+
+$small: $phones, $tablet-portrait, $tablet-landscape, $desktop-minimum, $desktop-small;
+$large: $tablet-plus-portrait, $tablet-plus-landscape, $desktop-reduced, $desktop, $desktop-hd, $desktop-4k;
+
+@mixin for-viewports($args...) {
+    @each $arg in $args {
+        :host-context(#{$arg}) {
+            @content;
+        }
+    }
+}

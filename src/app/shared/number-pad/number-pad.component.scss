@@ -1,0 +1,105 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/viewports' as *;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    background-color: $number-pad-background-color;
+    padding: 1px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.layout {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: minmax(1fr, max-content) 1fr 1fr 1fr 1fr;
+    border: 1px solid transparent;
+
+    &:focus {
+        border: 1px solid $focus-color;
+        border-radius: 7px;
+        outline: none;
+    }
+}
+
+.display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $number-pad-display-color;
+    background-color: $number-pad-display-background-color;
+    font-weight: bold;
+    font-size: 150%;
+    grid-column: 1/4;
+    padding: 0.1rem;
+    margin: 1px;
+    border-radius: 6px 6px 0 0;
+
+    &.displayValueAccepted {
+        color: $number-pad-display-accepted-color;
+    }
+}
+
+button {
+    display: inline-block;
+    fill: $number-pad-button-color;
+    color: $number-pad-button-color;
+    background-color: $number-pad-button-background-color;
+    transition: background-color 0.2s;
+    border: none;
+    margin: 1px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: normal;
+    cursor: pointer;
+
+    &.disabled {
+        color: $number-pad-button-disabled-color;
+        cursor: default;
+
+        &:hover {
+            fill: $number-pad-button-disabled-color;
+            color: $number-pad-button-disabled-color;
+            background-color: $number-pad-button-background-color;
+        }
+    }
+
+    &.function-key {
+        background-color: $number-pad-function-button-background-color;
+
+        &.clear {
+            border-radius: 0 0 0 6px;
+        }
+
+        &.backspace {
+            border-radius: 0 0 6px 0;
+        }
+
+        &:hover {
+            fill: $number-pad-button-invert-color;
+            color: $number-pad-button-invert-color;
+            background-color: $number-pad-function-button-hover-background-color;
+        }
+
+        svg {
+            vertical-align: middle;
+            width: 1.2em;
+            height: 1.2em;
+        }
+    }
+
+    &:hover {
+        color: $number-pad-button-invert-color;
+        background-color: $number-pad-button-background-hover-color;
+        transition: background-color 0.2s;
+    }
+
+    &:active {
+        color: $number-pad-button-invert-color;
+        background-color: $number-pad-button-background-active-color;
+    }
+}

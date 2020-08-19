@@ -1,0 +1,65 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+@use 'src/styles/global-viewports' as *;
+
+@include global-styles;
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+        font-size: 1.2rem;
+        margin: 0.6rem 0;
+        padding: 0;
+
+        &:nth-child(n + 2) {
+            margin-top: 0.8rem;
+        }
+
+        ul {
+            &.horizontal {
+                li {
+                    display: inline-block;
+                    margin: 0 1.7rem 0 0;
+                }
+            }
+
+            li {
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                ul li {
+                    margin: 0.35rem 1.5rem 0 0;
+                }
+            }
+        }
+    }
+}
+
+.prompt {
+    color: $secondary-background-color;
+    font-weight: bold;
+}
+
+.countdown-type {
+    width: 6.1rem;
+    display: inline-block;
+}
+
+@include for-viewports($tablet-landscape, $tablet-plus-landscape, $desktop, $desktop-hd, $desktop-4k) {
+    ul li {
+        font-size: inherit;
+
+        ul.horizontal-to-vertical li {
+            display: inline-block;
+        }
+    }
+}

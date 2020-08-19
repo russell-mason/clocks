@@ -1,0 +1,30 @@
+@use 'src/styles/fonts' as *;
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+$padding-sides: 1rem;
+$padding-sides-large: 1.5rem;
+$content-radius: 5px;
+$outline-gap: 4px;
+
+:host {
+    display: flex;
+    font-size: 1.2rem;
+    margin: $outline-gap;
+    border-radius: 0 0 $content-radius $content-radius;
+    padding: 0.6rem $padding-sides;
+}
+
+:host-context(.light) {
+    background-color: $card-background-color;
+}
+
+:host-context(.dark) {
+    background-color: $card-background-color-dark;
+}
+
+@include for-viewports($large) {
+    font-size: 1.3rem;
+    padding: 0.6rem $padding-sides-large;
+}

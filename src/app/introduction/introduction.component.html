@@ -1,0 +1,199 @@
+<main class="page">
+    <app-header-block heading="INTRODUCTION"></app-header-block>
+
+    <section class="content default-padding">
+        <section class="overview">
+            <p>Clocks is a simple memory game against the clock!</p>
+            <p>All you have to do is remember the time.</p>
+            <p>
+                You can set various options that make the game more difficult, such as how many clock faces you
+                see at once, whether the time includes seconds, and how long you have to remember, and enter, your
+                guess.
+            </p>
+            <p>Scores are based on how difficult the game is, and how long you take to respond.</p>
+        </section>
+
+        <section class="help">
+            <h2>Help</h2>
+            <p>
+                Although the game is simple to pick up, the following sections fully describe what options are
+                available, and how to play the game.
+            </p>
+
+            <app-options-card heading="Options">
+                <div class="card-content">
+                    <div>
+                        <h3>Theme</h3>
+                        <p>Determines whether the application uses a light or dark background.</p>
+                        <img src="assets/help-light-dark-theme.png" class="light-dark-image">
+                    </div>
+                    <div>
+                        <h3>Number of clocks</h3>
+                        <p>Determines whether one, two, or four, clocks are displayed at once.</p>
+                        <img src="assets/help-number-of-clocks-1-2.png" class="number-of-clocks-image">
+                        <img src="assets/help-number-of-clocks-3-4.png" class="number-of-clocks-image">
+                        <p>
+                            Because it's harder to remember multiple clocks in a single game than it is to remember
+                            a single clock in multiple games, scores are weighted higher for additional clocks.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Clock face</h3>
+
+                        <h4>Show am/pm indicators</h4>
+                        <p>Determines whether AM and PM indicators are shown.</p>
+                        <img src="assets/help-am-pm.png" class="am-pm-image">
+                        <p>
+                            When this option is not checked, no AM/PM indicators will be shown. Twelve/twenty-four hour
+                            times are seen as equivalent. e.g. If the clock shows "3:45" and you enter 03:45 or 15:45,
+                            both will be treated as correct.
+                        </p>
+                        <p>
+                            When checked, AM/PM indicators will be shown. Twelve/twenty-four hour times are seen
+                            as distinct and you must enter the matching value. e.g. If the clock shows "3:45" with a
+                            "PM" indicator, you must enter 15:45 to be correct, entering 03:45 will be treated as
+                            incorrect.
+                        </p>
+                        <p>
+                            Higher scores are given when indicators are shown.
+                        </p>
+
+                        <h4>Show second hand</h4>
+                        <p>Determines whether a second hand is shown on the clock.</p>
+                        <img src="assets/help-second-hand.png" class="second-hand-image">
+                        <p>A clock with no second hand is equivalent to remembering a four digit number.</p>
+                        <p>A clock with the second hand is equivalent to remembering a six digit number.</p>
+                        <p>Higher scores are given for times when the second hand is shown.</p>
+
+                        <h4>Show markers</h4>
+                        <p>Determines which markers are shown around the clock face.</p>
+                        <img src="assets/help-markers-1-2.png" class="markers-image">
+                        <img src="assets/help-markers-3-4.png" class="markers-image">
+                        <p>The fewer markers shown, the higher the score given.</p>
+                    </div>
+                    <div>
+                        <h3>Countdown timers</h3>
+                        <h4>Memorize</h4>
+                        <p>Determines the amount of time you're given to memorize the time.</p>
+                        <h4>Recall</h4>
+                        <p>Determines the amount of time you're given to recall the time.</p>
+                        <img src="assets/help-countdown.png" class="help-countdown-image">
+                        <p>Both allow a selection from 5 seconds to 60 seconds, in 5 second increments.</p>
+                        <p>
+                            Higher scores are given if there is still time left on the countdown when you continue to
+                            the following screens.
+                        </p>
+                    </div>
+                </div>
+            </app-options-card>
+
+            <app-options-card heading="How to play">
+                <diV>
+                    <p>Once you've selected the options you want, it's time to play.</p>
+                    <p>Click the "next" button; don't worry, the game won't start immediately.</p>
+
+                    <h3>Get Ready</h3>
+                    <p>This allows you to dictate when the game starts.</p>
+                    <p>
+                        When you're ready, click the "play" button and the game will proceed to the "Memorize" screen,
+                        and the countdown will begin immediately.
+                    </p>
+
+                    <h3>Memorize</h3>
+                    <p>This screen will show one or more clocks using the chosen options.</p>
+                    <p>
+                        Each clock has a corresponding number so that when it comes time to recall your guess, you
+                        know which time to assign to which clock.
+                    </p>
+                    <p>Once memorized, you can click the "stop" button to continue, or let the time run out.</p>
+                    <p>When the counter reaches zero, the game will automatically proceed to the "Recall" screen,
+                        and the next countdown will begin immediately.</p>
+                    <p>Tip:</p>
+                    <ul>
+                        <li>Proceeding to the next screen before the time runs out will result in a higher score.</li>
+                    </ul>
+
+                    <h3>Recall</h3>
+                    <p>In this screen you need to recall the times you were just shown.</p>
+                    <p>
+                        Click on the clock with the number you wish to enter a time for (the first clock will be
+                        selected by default), and use the number pad to enter the time. You don't need to include
+                        ":" separators, they will automatically be added and shown against the currently selected clock.
+                        You must enter four digits or six digits, depending on the selected options, i.e. 6:18 must
+                        be entered as 0618, 9:23:51 must be entered as 092351.
+                    </p>
+                    <p>
+                        You can freely switch between clocks at any time. If the current value in invalid it will be
+                        shown greyed in the number pad display and no time will be shown on the clock face.
+                    </p>
+                    <p>
+                        Once you've entered all times, you can click the "check" button to see how well you've done,
+                        or let the time run out.
+                    </p>
+                    <p>When the counter reaches zero, the game will automatically proceed to the "Scores" screen.</p>
+                    <p>Tips:</p>
+                    <ul>
+                        <li>Proceeding to the next screen before the time runs out will result in a higher score.</li>
+                        <li>
+                            When "Show second hand" is selected, you can still score points with a partially correct
+                            answer, i.e. you get the hours and minutes correct, but the seconds wrong.
+                        </li>
+                    </ul>
+                    <p>
+                        In addition to clicking on the clock and number pad, you can also use the keyboard, see
+                        "Using the keyboard" below.
+                    </p>
+
+                    <h3>Scores</h3>
+                    <p>
+                        This screen shows the results of the completed game, along with the total scores for all the
+                        games you've played.
+                    </p>
+                    <p>You can continue with one of the following:</p>
+                    <ul>
+                        <li>
+                            Intro: Return to this screen, so you can re-read the instructions.
+                        </li>
+                        <li>
+                            Options: Return to the "Options" screen, so you can change options prior to playing another
+                            game.
+                        </li>
+                        <li>
+                            Play again: Return to the "Get Ready" screen, so you can play another game with the same
+                            options.
+                        </li>
+                    </ul>
+
+                    <h2>Using the keyboard</h2>
+                    <ul>
+                        <li>
+                            Pressing the "Enter" key is the same as clicking the button on the right-hand side of the
+                            footer.
+                        </li>
+                        <li>When scores are being shown, "Enter" will activate the right-most button, i.e. "play again"
+                        </li>
+                        <li>
+                            On the "Recall" screen, focus is automatically set to the number pad, so you can just start
+                            typing to enter a number.
+                        </li>
+                        <li>Pressing the "Backspace" key will delete the last number entered.</li>
+                        <li>Pressing the "Esc" key or the "c" key will clear the entire entry.</li>
+                        <li>
+                            When multiple clocks are displayed, you can switch between them using "Ctrl"
+                            ("control" on a Mac) and the corresponding clock number,<br>
+                            e.g. Ctrl+1, Ctrl+2, Ctrl+3, or Ctrl+4.
+                        </li>
+                        <li>
+                            Focus will automatically return to the number pad and you can continue to enter/edit a
+                            number as normal.
+                        </li>
+                    </ul>
+                </diV>
+            </app-options-card>
+        </section>
+    </section>
+
+    <app-footer-block heading="Let's get started">
+        <app-svg-image-button icon="next" caption="next" routerLink="/options" appEnterClick></app-svg-image-button>
+    </app-footer-block>
+</main>

@@ -1,0 +1,56 @@
+// Light (default)
+$focus-color: #0000ff;
+$shadow-color: #00000050;
+
+$default-color: #353535;
+$default-color-soften: #656565;
+$default-background-color: #f0f0f0;
+
+$primary-color: #ffffff;
+$primary-background-color: #0078d4;
+
+$secondary-color: #ffffff;
+$secondary-background-color: #e06838;
+$secondary-background-color-soften: #ce886c;
+
+$correct-color: #61d448;
+$partially-correct-color: #509a3f;
+$incorrect-color: #e66a4e;
+
+$card-border-color: #d0d0d0;
+$card-index-color: #2b2b2b;
+$card-background-color: lighten($default-background-color, 15%);
+
+$clock-face-background-outline-color: #78797b;
+$clock-face-background-color: #3e3e3e;
+$clock-face-quarter-hour-interval-color: #bdbec0;
+$clock-face-five-minute-interval-color: #a7a8a9;
+$clock-face-minute-interval-color: #7c7c7c;
+$clock-face-hands-outline-color: #ffffff;
+$clock-face-hands-color: #dbdcde;
+$clock-face-second-hand-color: #fb9740;
+$clock-face-meridiem-background-color: #a0a0a0;
+$clock-face-meridiem-color: #d0d0d0;
+$clock-face-meridiem-selected-background-color: #fb9740;
+$clock-face-meridiem-selected-color: #ffffff;
+
+$number-pad-background-color: #c6c6c6;
+$number-pad-display-color: #919191;
+$number-pad-display-accepted-color: #353535;
+$number-pad-display-background-color: #dddddd;
+$number-pad-button-color: #000000;
+$number-pad-button-invert-color: #ffffff;
+$number-pad-button-background-color: #f4f4f4;
+$number-pad-button-background-hover-color: #f5903a;
+$number-pad-button-disabled-color: #d4d4d4;
+$number-pad-button-background-active-color: #ff7700;
+$number-pad-function-button-background-color: #dddddd;
+$number-pad-function-button-hover-background-color: #f53a3a;
+$number-pad-function-button-color: #ffffff;
+
+// Dark
+$default-color-dark: #ededed;
+$default-color-dark-soften: #8d8d8d;
+$default-background-color-dark: #3b3c3d;
+
+$card-background-color-dark: darken($default-background-color-dark, 4%);

@@ -1,0 +1,141 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/viewports' as *;
+
+@mixin game-score-layout-cards($constraint-width, $game-card-width, $game-card-height) {
+    .layout-constraint {
+        width: $constraint-width;
+    }
+
+    .count-1 app-game-score-card {
+        width: $constraint-width;
+    }
+
+    .count-2 app-game-score-card,
+    .count-4 app-game-score-card {
+        width: $game-card-width;
+    }
+
+    app-game-score-card {
+        height: $game-card-height;
+    }
+}
+
+section.content {
+    display: flex;
+    justify-content: center;
+}
+
+app-card,
+app-session-score-card,
+app-game-score-card {
+    box-sizing: border-box;
+}
+
+.timeout-message {
+    display: block;
+    color: $primary-color;
+    background-color: $secondary-background-color;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.game-scores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@include for-viewports($small) {
+    .timeout-message {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+
+    .layout-constraint {
+        margin: 8px 0;
+    }
+
+    app-card,
+    app-session-score-card,
+    app-game-score-card {
+        margin: 5px;
+    }
+
+    app-svg-image-button:not(:last-child) {
+        margin-right: 2px;
+    }
+}
+
+@include for-viewports($large) {
+    .timeout-message {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+    }
+
+    .layout-constraint {
+        margin: 12px 0;
+    }
+
+    app-card,
+    app-session-score-card,
+    app-game-score-card {
+        margin: 8px;
+    }
+
+    app-svg-image-button:not(:last-child) {
+        margin-right: 18px;
+    }
+}
+
+@include for-viewports($phone-landscape) {
+    @include game-score-layout-cards(640px, 640px, 140px);
+}
+
+@include for-viewports($phone-portrait) {
+    @include game-score-layout-cards(326px, 326px, 132px);
+}
+
+@include for-viewports($phone-plus-landscape) {
+    @include game-score-layout-cards(750px, 365px, 140px);
+}
+
+@include for-viewports($phone-plus-portrait) {
+    @include game-score-layout-cards(380px, 380px, 140px);
+}
+
+@include for-viewports($tablet-landscape) {
+    @include game-score-layout-cards(864px, 422px, 140px);
+}
+
+@include for-viewports($tablet-portrait) {
+    @include game-score-layout-cards(472px, 462px, 145px);
+}
+
+@include for-viewports($tablet-plus-landscape) {
+    @include game-score-layout-cards(944px, 456px, 150px);
+}
+
+@include for-viewports($tablet-plus-portrait) {
+    @include game-score-layout-cards(612px, 612px, 146px);
+}
+
+@include for-viewports($desktop-minimum) {
+    @include game-score-layout-cards(430px, 430px, 94px);
+}
+
+@include for-viewports($desktop-small) {
+    @include game-score-layout-cards(574px, 574px, 155px);
+}
+
+@include for-viewports($desktop-reduced) {
+    @include game-score-layout-cards(816px, 392px, 134px);
+}
+
+@include for-viewports($desktop) {
+    @include game-score-layout-cards(1204px, 586px, 214px);
+}
+
+@include for-viewports($desktop-hd, $desktop-4k) {
+    @include game-score-layout-cards(1352px, 660px, 256px);
+}

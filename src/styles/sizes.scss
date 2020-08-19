@@ -1,0 +1,7 @@
+$page-margin-sides: 2rem;
+$page-margin-sides-large: 5rem;
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}

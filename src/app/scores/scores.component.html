@@ -1,0 +1,32 @@
+<main class="page">
+    <app-header-block heading="SCORES"></app-header-block>
+
+    <section class="content">
+        <div class="layout-constraint">
+            <app-card *ngIf="showTimeoutMessage" class="timeout-message">
+                Time's up! Your score with be based on the entries available when the time ran out.
+            </app-card>
+
+            <div *ngIf="sessionScore$ | async as sessionScore" class="session-scores">
+                <app-session-score-card [score]="sessionScore"></app-session-score-card>
+            </div>
+
+            <div class="game-scores" *ngIf="gameScores$ | async as gameScores"
+                [ngClass]="true ? 'count-' + gameScores.length.toString() : ''">
+                <app-game-score-card *ngFor="let gameScore of gameScores; let index = index" [index]="index"
+                    [score]="gameScore">
+                </app-game-score-card>
+            </div>
+        </div>
+    </section>
+
+    <app-footer-block heading="What next?">
+        <app-svg-image-button icon="introduction" caption="intro" routerLink="/introduction">
+        </app-svg-image-button>
+
+        <app-svg-image-button icon="options" caption="options" routerLink="/options"></app-svg-image-button>
+
+        <app-svg-image-button icon="replay" caption="play again" appEnterClick (click)="playAgain()">
+        </app-svg-image-button>
+    </app-footer-block>
+</main>

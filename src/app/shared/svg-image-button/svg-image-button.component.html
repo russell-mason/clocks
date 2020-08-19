@@ -1,0 +1,11 @@
+<button [routerLink]="routerLink">
+    <div class="svg-button">
+        <svg class="svg-icon-background">
+            <use href="#icon-background" />
+        </svg>
+        <svg class="svg-icon">
+            <use attr.href="#{{icon}}-icon" />
+        </svg>
+    </div>
+    <p *ngIf="!!caption" class="caption">{{caption}}</p>
+</button>

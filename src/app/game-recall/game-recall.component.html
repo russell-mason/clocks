@@ -1,0 +1,36 @@
+<main class="page">
+    <app-header-block heading="RECALL"></app-header-block>
+
+    <section class="content">
+        <form [formGroup]="form">
+            <div formArrayName="guesses" class="layout"
+                [ngClass]="true ? 'count-' + guesses.controls.length.toString() : ''">
+
+                <ng-container *ngIf="gameOptions$ |async as gameOptions">
+                    <div class="cards-layout">
+                        <app-card *ngFor="let guess of guesses.controls; let index=index" [index]="index + 1"
+                            [isSelected]="index === selectedIndex" (click)="onSelectedIndexChange(index)">
+
+                            <div class="clock-time">
+                                <app-clock-face [time]="getGuessTime(index)" [dialOptions]="gameOptions.dialOptions">
+                                </app-clock-face>
+
+                                <p class="time">&nbsp;{{getFormattedGuess(index, gameOptions)}}&nbsp;</p>
+                            </div>
+                        </app-card>
+                    </div>
+
+                    <app-number-pad appInitialFocus=".layout" [displayValue]="getGuess(selectedIndex)"
+                        [displayValueAccepted]="!!getGuessTime(selectedIndex)"
+                        [maxLength]="gameOptions.dialOptions.showSecondHand ? 6 : 4"
+                        (valueChanged)="onNumberPadChange($event)">
+                    </app-number-pad>
+                </ng-container>
+            </div>
+        </form>
+    </section>
+
+    <app-footer-block heading="{{countdown$ | async}} seconds remaining">
+        <app-svg-image-button icon="check" caption="check" (click)="onNext()" appEnterClick></app-svg-image-button>
+    </app-footer-block>
+</main>

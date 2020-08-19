@@ -1,0 +1,27 @@
+@use 'src/styles/fonts' as *;
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+$padding-sides: 1rem;
+$padding-sides-large: 1.5rem;
+$content-radius: 5px;
+$outline-gap: 4px;
+
+h2 {
+    font-family: $regular-font;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: $outline-gap;
+    border-radius: $content-radius $content-radius 0 0;
+    color: $secondary-color;
+    background: linear-gradient(0, $secondary-background-color 10%, darken($secondary-background-color, 5%) 90%);
+    padding: 0.3rem $padding-sides 0.4rem $padding-sides;
+}
+
+@include for-viewports($large) {
+    h2 {
+        font-size: 1.3rem;
+        padding: 0.3rem $padding-sides-large 0.4rem $padding-sides-large;
+    }
+}

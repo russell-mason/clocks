@@ -1,0 +1,95 @@
+@use 'src/styles/colors' as *;
+
+:host {
+    display: inline-block;
+}
+
+.clock {
+    position: relative;
+    filter: drop-shadow(4px 4px 4px $shadow-color);
+
+    .face {
+        z-index: 1;
+        position: relative;
+
+        .face-background {
+            stroke: $clock-face-background-outline-color;
+            fill: $clock-face-background-color;
+            stroke-width: 6px;
+        }
+
+        .quarter-hour-interval {
+            stroke: $clock-face-quarter-hour-interval-color;
+            stroke-width: 2.4px;
+            stroke-linecap: round;
+        }
+
+        .five-minute-interval {
+            stroke: $clock-face-five-minute-interval-color;
+            stroke-width: 0.8px;
+            stroke-linecap: round;
+        }
+
+        .minute-interval {
+            stroke: $clock-face-minute-interval-color;
+            stroke-width: 0.5px;
+            stroke-linecap: round;
+        }
+
+        .hour-hand {
+            fill: $clock-face-hands-color;
+            stroke: $clock-face-hands-outline-color;
+            stroke-width: 0.4px;
+        }
+
+        .minute-hand {
+            fill: $clock-face-hands-color;
+            stroke: $clock-face-hands-outline-color;
+            stroke-width: 0.4px;
+        }
+
+        .second-hand {
+            fill: $clock-face-second-hand-color;
+        }
+
+        .minute-hand-centre {
+            fill: $clock-face-hands-color;
+        }
+
+        .minute-hand-centre-outline {
+            stroke: $clock-face-hands-outline-color;
+            stroke-width: 0.8px;
+        }
+
+        .second-hand-centre {
+            fill: $clock-face-second-hand-color;
+        }
+    }
+}
+
+.meridiem-band {
+    fill: $clock-face-meridiem-background-color;
+    filter: drop-shadow(0 2px 4px $shadow-color);
+
+    &.selected-meridiem {
+        fill: $clock-face-meridiem-selected-background-color;
+    }
+}
+
+.meridiem {
+    font-size: 0.45rem;
+    font-weight: bold;
+    fill: $clock-face-meridiem-color;
+
+    &.selected-meridiem {
+        fill: $clock-face-meridiem-selected-color;
+    }
+
+    &.meridiem-am {
+        text-anchor: start;
+    }
+
+    &.meridiem-pm {
+        text-anchor: end;
+    }
+}

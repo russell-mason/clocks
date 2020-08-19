@@ -1,0 +1,190 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/sizes' as *;
+@use 'src/styles/viewports' as *;
+
+@mixin game-score-layout($time-gap, $guess-gap) {
+    .time {
+        margin-right: $time-gap;
+    }
+
+    .guess {
+        margin-right: $guess-gap;
+    }
+}
+
+@mixin game-score-layout-clocks($clock-size, $valid-font-size, $invalid-font-size) {
+    .time,
+    .guess {
+        width: $clock-size;
+
+        app-clock-face {
+            @include size($clock-size);
+        }
+
+        p {
+            margin: calc(#{$valid-font-size} * 0.4) 0 0 0;
+
+            &.time,
+            &.valid {
+                font-size: $valid-font-size;
+            }
+
+            &.invalid {
+                font-size: $invalid-font-size;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+@mixin game-score-layout-results($width, $icon-size, $caption-font-size, $value-font-size) {
+    .result {
+        width: $width;
+
+        p {
+            font-size: $caption-font-size;
+        }
+
+        .correctness {
+            .svg-icon {
+                @include size($icon-size);
+            }
+
+            p {
+                margin-top: calc(#{$caption-font-size} * 0.23);
+            }
+        }
+
+        .score .score-value {
+            font-size: $value-font-size;
+            line-height: $value-font-size;
+        }
+    }
+}
+
+app-card {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    margin-left: 22px;
+}
+
+.align-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    p {
+        margin: 0;
+    }
+
+    .score {
+        margin-top: 5px;
+
+        .score-value {
+            font-weight: bold;
+        }
+    }
+}
+
+.correct,
+.correct-icon {
+    color: $correct-color;
+    fill: $correct-color;
+}
+
+.partially-correct,
+.partially-correct-icon {
+    color: $partially-correct-color;
+    fill: $partially-correct-color;
+}
+
+.incorrect,
+.incorrect-icon {
+    color: $incorrect-color;
+    fill: $incorrect-color;
+}
+
+:host-context(.light) .invalid {
+    color: $default-color-soften;
+}
+
+:host-context(.dark) .invalid {
+    color: $default-color-dark-soften;
+}
+
+@include for-viewports($phone-landscape) {
+    @include game-score-layout(32px, 14px);
+    @include game-score-layout-clocks(86px, 1.1rem, 0.8rem);
+    @include game-score-layout-results(114px, 34px, 0.9rem, 2.3rem);
+}
+
+@include for-viewports($phone-portrait) {
+    @include game-score-layout(24px, 12px);
+    @include game-score-layout-clocks(68px, 1.1rem, 0.8rem);
+    @include game-score-layout-results(80px, 30px, 0.75rem, 2.1rem);
+}
+
+@include for-viewports($phone-plus-landscape) {
+    @include game-score-layout(24px, 12px);
+    @include game-score-layout-clocks(84px, 1.1rem, 0.8rem);
+    @include game-score-layout-results(84px, 30px, 0.8rem, 2.1rem);
+}
+
+@include for-viewports($phone-plus-portrait) {
+    @include game-score-layout(24px, 12px);
+    @include game-score-layout-clocks(84px, 1.2rem, 0.9rem);
+    @include game-score-layout-results(94px, 32px, 0.9rem, 2.2rem);
+}
+
+@include for-viewports(
+    $tablet-landscape,
+    $tablet-plus-landscape,
+    $tablet-portrait,
+    $tablet-plus-portrait,
+    $desktop-reduced
+) {
+    @include game-score-layout(35px, 22px);
+    @include game-score-layout-clocks(88px, 1.2rem, 0.9rem);
+    @include game-score-layout-results(98px, 38px, 0.9rem, 2.3rem);
+}
+
+@include for-viewports($desktop-minimum) {
+    @include game-score-layout(35px, 22px);
+    @include game-score-layout-clocks(50px, 1.1rem, 0.8rem);
+    @include game-score-layout-results(90px, 20px, 0.8rem, 1.6rem);
+}
+
+@include for-viewports($desktop-small) {
+    @include game-score-layout(40px, 25px);
+    @include game-score-layout-clocks(90px, 1.25rem, 1rem);
+    @include game-score-layout-results(108px, 32px, 1rem, 2.7rem);
+}
+
+@include for-viewports($desktop) {
+    @include game-score-layout(60px, 40px);
+    @include game-score-layout-clocks(128px, 1.75rem, 1.3rem);
+    @include game-score-layout-results(132px, 44px, 1.25rem, 3.5rem);
+}
+
+@include for-viewports($desktop-hd, $desktop-4k) {
+    @include game-score-layout(60px, 45px);
+    @include game-score-layout-clocks(150px, 1.8rem, 1.3rem);
+    @include game-score-layout-results(148px, 50px, 1.35rem, 4.5rem);
+}
