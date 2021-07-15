@@ -8,6 +8,10 @@
     position: relative;
     filter: drop-shadow(4px 4px 4px $shadow-color);
 
+    svg {
+        overflow: visible;
+    }
+
     .face {
         z-index: 1;
         position: relative;
