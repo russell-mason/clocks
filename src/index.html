@@ -10,6 +10,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="preload" href="./assets/segoeui.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="./assets/segoeuil.woff" as="font" type="font/woff" crossorigin="anonymous">
     <meta charset="utf-8">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
@@ -20,6 +22,17 @@
             window.location.href = './unsupported.html';
         }
     </script>
+    <style>
+        @font-face {
+            font-family: 'Segoe WebFont Light';
+            src: url('./assets/segoeuil.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Segoe WebFont Regular';
+            src: url('./assets/segoeui.woff') format('woff');
+        }
+    </style>
 </head>
 
 <body>
