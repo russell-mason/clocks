@@ -10,13 +10,17 @@ import {
 } from '@angular/core';
 import { GameService } from '../shared/game/game.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { UntypedFormGroup, UntypedFormControl, UntypedFormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { tap, first, filter } from 'rxjs/operators';
 import { Time } from '../shared/time/time.model';
 import { NumberPadComponent } from '../shared/number-pad/number-pad.component';
 import { GameOptions } from '../shared/options/game-options';
 import { InitialFocusDirective } from '../shared/directives/initial-focus.directive';
+
+interface GuessesForm {
+    guesses: FormArray<FormControl<string>>;
+}
 
 /**
  * Component allowing the user to enter their guesses.
@@ -40,7 +44,6 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      */
     constructor(private gameService: GameService) {
         this.form = this.createForm();
-        this.guesses = this.form.get('guesses') as UntypedFormArray;
     }
 
     /**
@@ -76,12 +79,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     /**
      * Gets the form containing user input.
      */
-    public readonly form: UntypedFormGroup;
-
-    /**
-     * Gets or sets the form controls containing user guesses.
-     */
-    public guesses: UntypedFormArray;
+    public readonly form: FormGroup<GuessesForm>;
 
     /**
      * Gets or sets the index of the currently selected card displaying the clock to be set.
@@ -98,7 +96,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
             tap(times => {
                 const guessesControls = this.createGuessesFormControls(times.length);
 
-                guessesControls.forEach(guessesControl => this.guesses.push(guessesControl));
+                guessesControls.forEach(guessesControl => this.form.controls.guesses.push(guessesControl));
             })
         );
 
@@ -113,7 +111,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
         const guessChange$ = this.guess$.pipe(
             filter(value => !!value),
             tap(({ index, value }) => {
-                this.guesses.controls[index].setValue(value);
+                this.form.controls.guesses.controls[index].setValue(value);
             })
         );
 
@@ -147,7 +145,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      * @returns The guess represented as a raw string.
      */
     public getGuess(index: number): string {
-        return this.guesses.controls[index].value;
+        return this.form.controls.guesses.controls[index].value;
     }
 
     /**
@@ -196,7 +194,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     public onSelectedIndexChange(index: number) {
         this.selectedIndex = index;
 
-        this.numberPad.setValue(this.guesses.controls[index].value);
+        this.numberPad.setValue(this.form.controls.guesses.controls[index].value);
 
         // Automatically reset focus back to the number pad
         this.initialFocus.reset();
@@ -215,17 +213,17 @@ export class GameRecallComponent implements OnInit, OnDestroy {
         this.guessSubject.next({ index: this.selectedIndex, value });
     }
 
-    private createForm(): UntypedFormGroup {
-        return new UntypedFormGroup({
-            guesses: new UntypedFormArray([])
+    private createForm(): FormGroup<GuessesForm> {
+        return new FormGroup<GuessesForm>({
+            guesses: new FormArray<FormControl<string>>([])
         });
     }
 
-    private createGuessesFormControls(count: number): UntypedFormControl[] {
-        const controlArray: UntypedFormControl[] = [];
+    private createGuessesFormControls(count: number): FormControl<string>[] {
+        const controlArray: FormControl<string>[] = [];
 
         for (let index = 0; index < count; index++) {
-            controlArray.push(new UntypedFormControl());
+            controlArray.push(new FormControl(''));
         }
 
         return controlArray;

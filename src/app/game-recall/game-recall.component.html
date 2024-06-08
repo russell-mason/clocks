@@ -4,11 +4,11 @@
     <section class="content">
         <form [formGroup]="form">
             <div formArrayName="guesses" class="layout"
-                [ngClass]="true ? 'count-' + guesses.controls.length.toString() : ''">
+                [ngClass]="true ? 'count-' + form.controls.guesses.controls.length.toString() : ''">
 
                 <ng-container *ngIf="gameOptions$ |async as gameOptions">
                     <div class="cards-layout">
-                        <app-card *ngFor="let guess of guesses.controls; let index=index" [index]="index + 1"
+                        <app-card *ngFor="let guess of form.controls.guesses.controls; let index=index" [index]="index + 1"
                             [isSelected]="index === selectedIndex" (click)="onSelectedIndexChange(index)">
 
                             <div class="clock-time">

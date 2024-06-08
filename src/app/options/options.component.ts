@@ -1,11 +1,23 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 import { OptionsService } from '../shared/options/options.service';
 import { GameOptions } from '../shared/options/game-options';
 import { Theme } from '../shared/options/theme.enum';
 import { DialInterval } from '../shared/options/dial-interval.enum';
+
+interface GameOptionsForm {
+    theme: FormControl<Theme>;
+    numberOfClocks: FormControl<number>,
+    dialOptions: FormGroup<{
+        isTwentyFourHour: FormControl<boolean>,
+        showSecondHand: FormControl<boolean>,
+        dialInterval: FormControl<DialInterval>
+    }>,
+    secondsToDisplay: FormControl<number>,
+    secondsToRespond: FormControl<number>
+};
 
 /**
  * Component that coordinates the change of options used within the game.
@@ -44,7 +56,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
     /**
      * Gets the form containing user inputs.
      */
-    public readonly form: UntypedFormGroup;
+    public readonly form: FormGroup<GameOptionsForm>;
 
     /**
      * Coordinates synchronization between user input and the underlying options.
@@ -68,17 +80,17 @@ export class OptionsComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
-    private createForm(): UntypedFormGroup {
-        return new UntypedFormGroup({
-            theme: new UntypedFormControl(),
-            numberOfClocks: new UntypedFormControl(),
-            dialOptions: new UntypedFormGroup({
-                isTwentyFourHour: new UntypedFormControl(),
-                showSecondHand: new UntypedFormControl(),
-                dialInterval: new UntypedFormControl()
+    private createForm(): FormGroup<GameOptionsForm> {
+        return new FormGroup<GameOptionsForm>({
+            theme: new FormControl(),
+            numberOfClocks: new FormControl(),
+            dialOptions: new FormGroup({
+                isTwentyFourHour: new FormControl(),
+                showSecondHand: new FormControl(),
+                dialInterval: new FormControl()
             }),
-            secondsToDisplay: new UntypedFormControl(),
-            secondsToRespond: new UntypedFormControl()
+            secondsToDisplay: new FormControl(),
+            secondsToRespond: new FormControl()
         });
     }
 
@@ -88,7 +100,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
     private formToModel(): void {
         if (this.form.valid) {
-            this.optionsService.save(this.form.value);
+            this.optionsService.save(this.form.value as GameOptions);
         }
     }
 }
