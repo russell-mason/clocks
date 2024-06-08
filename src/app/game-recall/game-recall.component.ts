@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { GameService } from '../shared/game/game.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormArray } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { tap, first, filter } from 'rxjs/operators';
 import { Time } from '../shared/time/time.model';
@@ -40,7 +40,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      */
     constructor(private gameService: GameService) {
         this.form = this.createForm();
-        this.guesses = this.form.get('guesses') as FormArray;
+        this.guesses = this.form.get('guesses') as UntypedFormArray;
     }
 
     /**
@@ -76,12 +76,12 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     /**
      * Gets the form containing user input.
      */
-    public readonly form: FormGroup;
+    public readonly form: UntypedFormGroup;
 
     /**
      * Gets or sets the form controls containing user guesses.
      */
-    public guesses: FormArray;
+    public guesses: UntypedFormArray;
 
     /**
      * Gets or sets the index of the currently selected card displaying the clock to be set.
@@ -215,17 +215,17 @@ export class GameRecallComponent implements OnInit, OnDestroy {
         this.guessSubject.next({ index: this.selectedIndex, value });
     }
 
-    private createForm(): FormGroup {
-        return new FormGroup({
-            guesses: new FormArray([])
+    private createForm(): UntypedFormGroup {
+        return new UntypedFormGroup({
+            guesses: new UntypedFormArray([])
         });
     }
 
-    private createGuessesFormControls(count: number): FormControl[] {
-        const controlArray: FormControl[] = [];
+    private createGuessesFormControls(count: number): UntypedFormControl[] {
+        const controlArray: UntypedFormControl[] = [];
 
         for (let index = 0; index < count; index++) {
-            controlArray.push(new FormControl());
+            controlArray.push(new UntypedFormControl());
         }
 
         return controlArray;

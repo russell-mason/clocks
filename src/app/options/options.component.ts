@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 import { OptionsService } from '../shared/options/options.service';
@@ -44,7 +44,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
     /**
      * Gets the form containing user inputs.
      */
-    public readonly form: FormGroup;
+    public readonly form: UntypedFormGroup;
 
     /**
      * Coordinates synchronization between user input and the underlying options.
@@ -68,17 +68,17 @@ export class OptionsComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
-    private createForm(): FormGroup {
-        return new FormGroup({
-            theme: new FormControl(),
-            numberOfClocks: new FormControl(),
-            dialOptions: new FormGroup({
-                isTwentyFourHour: new FormControl(),
-                showSecondHand: new FormControl(),
-                dialInterval: new FormControl()
+    private createForm(): UntypedFormGroup {
+        return new UntypedFormGroup({
+            theme: new UntypedFormControl(),
+            numberOfClocks: new UntypedFormControl(),
+            dialOptions: new UntypedFormGroup({
+                isTwentyFourHour: new UntypedFormControl(),
+                showSecondHand: new UntypedFormControl(),
+                dialInterval: new UntypedFormControl()
             }),
-            secondsToDisplay: new FormControl(),
-            secondsToRespond: new FormControl()
+            secondsToDisplay: new UntypedFormControl(),
+            secondsToRespond: new UntypedFormControl()
         });
     }
 
