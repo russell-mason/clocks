@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
 import { tap, first, takeWhile } from 'rxjs/operators';
-import { GameStage } from './game-stage.enum';
-import { Time } from '../time/time.model';
-import { OptionsService } from '../options/options.service';
-import { GameOptions, defaultGameOptions } from '../options/game-options';
-import { ScoringService } from './scoring.service';
 import { Game } from './game';
+import { GameStage } from './game-stage.enum';
+import { ScoringService } from './scoring.service';
+import { Time } from 'app/shared/time';
+import { OptionsService, GameOptions, defaultGameOptions } from 'app/shared/options';
 
 /**
  * Service that coordinates the flow of a game, generating times, handling timeouts, and progressing through each stage.

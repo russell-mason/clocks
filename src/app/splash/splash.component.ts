@@ -3,15 +3,18 @@ import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
+import { HeaderBlockComponent } from 'app/shared';
 
 /**
  * Component that represents a splash screen to display an application image.
  * This isn't a real splash screen, that's handled in the index.html page using a simple message.
  */
 @Component({
+    standalone: true,
     selector: 'app-splash',
     templateUrl: './splash.component.html',
-    styleUrls: ['./splash.component.scss']
+    styleUrls: ['./splash.component.scss'],
+    imports: [HeaderBlockComponent]
 })
 export class SplashComponent implements OnInit, OnDestroy {
     private subscriptions = new SubSink();

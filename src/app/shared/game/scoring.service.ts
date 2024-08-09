@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GameOptions } from '../options/game-options';
-import { Time } from '../time/time.model';
+import { GameOptions, DialInterval } from 'app/shared/options';
+import { Time } from 'app/shared/time';
+import { LocalStorageService } from 'app/shared/storage';
 import { GameScore } from './game-score';
 import { SessionScore, defaultSessionScore } from './session-score';
-import { LocalStorageService } from '../storage/local-storage.service';
 import { Game } from './game';
-import { DialInterval } from '../options/dial-interval.enum';
 
 const SCORES_STORAGE_KEY = 'clocks.scores';
 

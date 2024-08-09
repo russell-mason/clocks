@@ -7,6 +7,7 @@ import { Component, Input, Output, EventEmitter, HostListener, ChangeDetectionSt
  * For example, the underlying value could be 1234, but be displayed as 1-2-3-4, 123.4, or 12:34, etc.
  */
 @Component({
+    standalone: true,
     selector: 'app-number-pad',
     templateUrl: './number-pad.component.html',
     styleUrls: ['./number-pad.component.scss'],

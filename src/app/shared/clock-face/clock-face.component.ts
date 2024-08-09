@@ -1,17 +1,18 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Time } from '../time/time.model';
-import { Meridiem } from '../time/meridiem.enum';
-import { DialOptions } from '../options/dial-options';
-import { DialInterval } from '../options/dial-interval.enum';
+import { CommonModule } from '@angular/common';
+import { Time, Meridiem } from 'app/shared/time';
+import { DialOptions, DialInterval } from 'app/shared/options';
 
 /**
  * Component for displaying a clock face with various options such as interval markers around the circumference.
  */
 @Component({
+    standalone: true,
     selector: 'app-clock-face',
     templateUrl: './clock-face.component.html',
     styleUrls: ['./clock-face.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule]
 })
 export class ClockFaceComponent {
     /**

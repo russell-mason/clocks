@@ -8,15 +8,25 @@ import {
     ViewChild,
     HostListener
 } from '@angular/core';
-import { GameService } from '../shared/game/game.service';
+
+import { CommonModule } from '@angular/common';
+import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { SubSink } from 'subsink';
 import { tap, first, filter } from 'rxjs/operators';
-import { Time } from '../shared/time/time.model';
-import { NumberPadComponent } from '../shared/number-pad/number-pad.component';
-import { GameOptions } from '../shared/options/game-options';
-import { InitialFocusDirective } from '../shared/directives/initial-focus.directive';
+import { SubSink } from 'subsink';
+import { Time } from 'app/shared/time';
+import { GameService } from 'app/shared/game';
+import { GameOptions } from 'app/shared/options';
+
+import {
+    NumberPadComponent,
+    HeaderBlockComponent,
+    CardComponent,
+    ClockFaceComponent,
+    FooterBlockComponent,
+    SvgImageButtonComponent,
+    InitialFocusDirective
+} from 'app/shared';
 
 interface GuessesForm {
     guesses: FormArray<FormControl<string>>;
@@ -26,10 +36,22 @@ interface GuessesForm {
  * Component allowing the user to enter their guesses.
  */
 @Component({
+    standalone: true,
     selector: 'app-game-recall',
     templateUrl: './game-recall.component.html',
     styleUrls: ['./game-recall.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule, 
+        ReactiveFormsModule, 
+        HeaderBlockComponent, 
+        CardComponent, 
+        ClockFaceComponent, 
+        NumberPadComponent, 
+        FooterBlockComponent, 
+        SvgImageButtonComponent, 
+        InitialFocusDirective
+    ]
 })
 export class GameRecallComponent implements OnInit, OnDestroy {
     private subscriptions: SubSink = new SubSink();

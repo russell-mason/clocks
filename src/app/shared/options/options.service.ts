@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GameOptions, defaultGameOptions } from './game-options';
-import { LocalStorageService } from '../storage/local-storage.service';
+import { LocalStorageService } from 'app/shared/storage';
 
 const OPTIONS_STORAGE_KEY = 'clocks.options';
 

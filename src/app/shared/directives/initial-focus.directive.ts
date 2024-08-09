@@ -14,6 +14,7 @@ import { Directive, ElementRef, AfterViewInit, Input } from '@angular/core';
  * </div>
  */
 @Directive({
+    standalone: true,
     selector: '[appInitialFocus]'
 })
 export class InitialFocusDirective implements AfterViewInit {

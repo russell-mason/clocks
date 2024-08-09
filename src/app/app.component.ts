@@ -1,15 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
-import { OptionsService } from './shared/options/options.service';
-import { Theme } from './shared/options/theme.enum';
+import { Theme, OptionsService } from 'app/shared/options';
+import { SvgStoreComponent, ResponsiveGuideComponent, TrackViewportDirective } from 'app/shared';
 
 /**
  * Main application component.
  */
 @Component({
+    standalone: true,
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    imports: [CommonModule, RouterModule, SvgStoreComponent, ResponsiveGuideComponent, TrackViewportDirective]
 })
 export class AppComponent implements OnInit, OnDestroy {
     private subscriptions: SubSink = new SubSink();

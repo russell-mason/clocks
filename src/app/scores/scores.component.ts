@@ -1,15 +1,28 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { GameService } from '../shared/game/game.service';
-import { ScoringService } from '../shared/game/scoring.service';
+import { CommonModule } from '@angular/common';
+import { GameService, ScoringService } from 'app/shared/game';
+import { CardComponent, HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
+import { SessionScoreCardComponent } from 'app/session-score-card/session-score-card.component';
+import { GameScoreCardComponent } from 'app/game-score-card/game-score-card.component';
 
 /**
  * Component that displays scores for the game just played and total scores accumulated over time.
  */
 @Component({
+    standalone: true,
     selector: 'app-scores',
     templateUrl: './scores.component.html',
     styleUrls: ['./scores.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule, 
+        HeaderBlockComponent, 
+        CardComponent, 
+        SessionScoreCardComponent,
+        GameScoreCardComponent,
+        FooterBlockComponent, 
+        SvgImageButtonComponent
+    ],
 })
 export class ScoresComponent {
     /**

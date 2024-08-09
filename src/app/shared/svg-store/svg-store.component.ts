@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
  * <svg> <use href="#icon-background" /> </svg>
  */
 @Component({
+    standalone: true,
     selector: 'app-svg-store',
     templateUrl: './svg-store.component.html'
 })

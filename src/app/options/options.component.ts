@@ -1,11 +1,11 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
-import { OptionsService } from '../shared/options/options.service';
-import { GameOptions } from '../shared/options/game-options';
-import { Theme } from '../shared/options/theme.enum';
-import { DialInterval } from '../shared/options/dial-interval.enum';
+import { GameOptions, Theme, DialInterval, OptionsService } from 'app/shared/options';
+import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
+import { OptionsCardComponent } from 'app/options-card/options-card.component';
 
 interface GameOptionsForm {
     theme: FormControl<Theme>;
@@ -23,18 +23,21 @@ interface GameOptionsForm {
  * Component that coordinates the change of options used within the game.
  */
 @Component({
+    standalone: true,
     selector: 'app-options',
     templateUrl: './options.component.html',
     styleUrls: ['./options.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, ReactiveFormsModule, HeaderBlockComponent, OptionsCardComponent, FooterBlockComponent, SvgImageButtonComponent]
 })
 export class OptionsComponent implements OnInit, OnDestroy {
     private subscriptions = new SubSink();
+    private optionsService: OptionsService = inject(OptionsService);
 
     /**
      * Creates an instance of OptionsComponent.
      */
-    constructor(private optionsService: OptionsService) {
+    constructor() {
         this.form = this.createForm();
     }
 

@@ -8,6 +8,7 @@ import { Directive, HostListener, ElementRef } from '@angular/core';
  * <div appEnterClick></div>
  */
 @Directive({
+    standalone: true,
     selector: '[appEnterClick]'
 })
 export class EnterClickDirective {

@@ -1,15 +1,21 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { GameStage } from '../shared/game/game-stage.enum';
-import { GameService } from '../shared/game/game.service';
+import { CommonModule } from '@angular/common';
+import { GameStage, GameService } from 'app/shared/game';
+import { GamePendingComponent } from 'app/game-pending/game-pending.component';
+import { GameMemorizeComponent } from 'app/game-memorize/game-memorize.component';
+import { GameRecallComponent } from 'app/game-recall/game-recall.component';
+import { ScoresComponent } from 'app/scores/scores.component';
 
 /**
  * Component that coordinates what's shown to the user at any given time.
  * Responds to changes in the game and selects different components.
  */
 @Component({
+    standalone: true,
     selector: 'app-game',
     templateUrl: './game.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, GamePendingComponent, GameMemorizeComponent, GameRecallComponent, ScoresComponent]
 })
 export class GameComponent implements OnInit, OnDestroy {
     /**

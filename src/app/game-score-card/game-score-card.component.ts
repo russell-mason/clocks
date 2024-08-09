@@ -1,14 +1,18 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { GameScore } from '../shared/game/game-score';
+import { CommonModule } from '@angular/common';
+import { GameScore } from 'app/shared/game';
+import { CardComponent, ClockFaceComponent } from 'app/shared';
 
 /**
  * Component that represents the score for a single guess against a time.
  */
 @Component({
+    standalone: true,
     selector: 'app-game-score-card',
     templateUrl: './game-score-card.component.html',
     styleUrls: ['./game-score-card.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, CardComponent, ClockFaceComponent]
 })
 export class GameScoreCardComponent {
     /**

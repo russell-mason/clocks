@@ -1,5 +1,5 @@
-import { Time } from '../time/time.model';
-import { GameOptions } from '../options/game-options';
+import { Time } from 'app/shared/time';
+import { GameOptions } from 'app/shared/options';
 
 /**
  * Represents information about a game in order to score how well the user did.

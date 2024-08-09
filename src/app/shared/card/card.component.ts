@@ -4,6 +4,7 @@ import { Component, Input, ChangeDetectionStrategy, HostBinding } from '@angular
  * Component that represents a simple visual container with custom content.
  */
 @Component({
+    standalone: true,
     selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],

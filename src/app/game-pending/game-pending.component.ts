@@ -1,12 +1,15 @@
 import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
 
 /**
  * Component that represents a pause allowing the user to start the game when they're ready.
  */
 @Component({
+    standalone: true,
     selector: 'app-game-pending',
     templateUrl: './game-pending.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent]
 })
 export class GamePendingComponent {
     /**

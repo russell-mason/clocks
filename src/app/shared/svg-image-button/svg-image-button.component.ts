@@ -1,13 +1,16 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Icon } from './icon';
 
 /**
  * Component that represents a simple button with an SVG image, and an optional caption.
  */
 @Component({
+    standalone: true,
     selector: 'app-svg-image-button',
     templateUrl: './svg-image-button.component.html',
-    styleUrls: ['./svg-image-button.component.scss']
+    styleUrls: ['./svg-image-button.component.scss'],
+    imports: [RouterModule]
 })
 export class SvgImageButtonComponent {
     /**

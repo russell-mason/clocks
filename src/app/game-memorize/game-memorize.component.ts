@@ -1,5 +1,16 @@
 import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { GameService } from '../shared/game/game.service';
+import { CommonModule } from '@angular/common';
+
+import { 
+    HeaderBlockComponent, 
+    CardComponent, 
+    ClockFaceComponent, 
+    FooterBlockComponent, 
+    SvgImageButtonComponent,
+    EnterClickDirective
+} from 'app/shared';
+
+import { GameService } from 'app/shared/game';
 
 /**
  * Component that represents a set of times that the user needs to remember.
@@ -7,10 +18,20 @@ import { GameService } from '../shared/game/game.service';
  * The user can continue prior to the countdown completing to gain a higher score.
  */
 @Component({
+    standalone: true,
     selector: 'app-game-memorize',
     templateUrl: './game-memorize.component.html',
     styleUrls: ['./game-memorize.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule, 
+        HeaderBlockComponent, 
+        CardComponent, 
+        ClockFaceComponent, 
+        FooterBlockComponent, 
+        SvgImageButtonComponent, 
+        EnterClickDirective
+    ]
 })
 export class GameMemorizeComponent {
     /**

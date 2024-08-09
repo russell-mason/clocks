@@ -39,6 +39,7 @@ const viewportSizes = [
  * <div appTrackViewport></div>
  */
 @Directive({
+    standalone: true,
     selector: '[appTrackViewport]'
 })
 export class TrackViewportDirective implements AfterViewInit {
