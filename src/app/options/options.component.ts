@@ -1,5 +1,4 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
@@ -28,7 +27,7 @@ interface GameOptionsForm {
     templateUrl: './options.component.html',
     styleUrls: ['./options.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, ReactiveFormsModule, HeaderBlockComponent, OptionsCardComponent, FooterBlockComponent, SvgImageButtonComponent]
+    imports: [ReactiveFormsModule, HeaderBlockComponent, OptionsCardComponent, FooterBlockComponent, SvgImageButtonComponent]
 })
 export class OptionsComponent implements OnInit, OnDestroy {
     private subscriptions = new SubSink();

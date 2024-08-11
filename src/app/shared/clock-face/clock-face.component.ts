@@ -1,5 +1,4 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Time, Meridiem } from 'app/shared/time';
 import { DialOptions, DialInterval } from 'app/shared/options';
 
@@ -11,8 +10,7 @@ import { DialOptions, DialInterval } from 'app/shared/options';
     selector: 'app-clock-face',
     templateUrl: './clock-face.component.html',
     styleUrls: ['./clock-face.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClockFaceComponent {
     /**

@@ -9,12 +9,12 @@
                         <ul class="group-list horizontal">
                             <li>
                                 <label>
-                                    <input type="radio" formControlName="theme" [value]="Theme.light"> Light
+                                    <input type="radio" formControlName="theme" [value]="Theme.light" /> Light
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" formControlName="theme" [value]="Theme.dark"> Dark
+                                    <input type="radio" formControlName="theme" [value]="Theme.dark" /> Dark
                                 </label>
                             </li>
                         </ul>
@@ -24,19 +24,13 @@
                     <app-options-card heading="Number of clocks">
                         <ul class="group-list horizontal">
                             <li>
-                                <label>
-                                    <input type="radio" formControlName="numberOfClocks" [value]="1"> 1
-                                </label>
+                                <label> <input type="radio" formControlName="numberOfClocks" [value]="1" /> 1 </label>
                             </li>
                             <li>
-                                <label>
-                                    <input type="radio" formControlName="numberOfClocks" [value]="2"> 2
-                                </label>
+                                <label> <input type="radio" formControlName="numberOfClocks" [value]="2" /> 2 </label>
                             </li>
                             <li>
-                                <label>
-                                    <input type="radio" formControlName="numberOfClocks" [value]="4"> 4
-                                </label>
+                                <label> <input type="radio" formControlName="numberOfClocks" [value]="4" /> 4 </label>
                             </li>
                         </ul>
                     </app-options-card>
@@ -46,47 +40,55 @@
                         <ul class="group-list">
                             <li>
                                 <label>
-                                    <input type="checkbox" formControlName="isTwentyFourHour">
+                                    <input type="checkbox" formControlName="isTwentyFourHour" />
                                     Show am/pm indicators
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="checkbox" formControlName="showSecondHand"> Show second hand
+                                    <input type="checkbox" formControlName="showSecondHand" /> Show second hand
                                 </label>
                             </li>
                             <li>
-                                <div class="prompt">
-                                    Show markers
-                                </div>
+                                <div class="prompt">Show markers</div>
                                 <ul class="group-list horizontal-to-vertical">
                                     <li>
                                         <label>
-                                            <input type="radio" formControlName="dialInterval"
-                                                [value]="DialInterval.none">
+                                            <input
+                                                type="radio"
+                                                formControlName="dialInterval"
+                                                [value]="DialInterval.none"
+                                            />
                                             None
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <input type="radio" formControlName="dialInterval"
-                                                [value]="DialInterval.quarterHour">
+                                            <input
+                                                type="radio"
+                                                formControlName="dialInterval"
+                                                [value]="DialInterval.quarterHour"
+                                            />
                                             Quarter hour intervals
                                         </label>
-
                                     </li>
                                     <li>
                                         <label>
-                                            <input type="radio" formControlName="dialInterval"
-                                                [value]="DialInterval.fiveMinute">
+                                            <input
+                                                type="radio"
+                                                formControlName="dialInterval"
+                                                [value]="DialInterval.fiveMinute"
+                                            />
                                             Five minute intervals
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-
-                                            <input type="radio" formControlName="dialInterval"
-                                                [value]="DialInterval.minute">
+                                            <input
+                                                type="radio"
+                                                formControlName="dialInterval"
+                                                [value]="DialInterval.minute"
+                                            />
                                             One minute intervals
                                         </label>
                                     </li>
@@ -101,18 +103,24 @@
                             <li>
                                 <span class="countdown-type">Memorize</span>
                                 <select formControlName="secondsToDisplay">
-                                    <option *ngFor="let period of validPeriodsInSeconds" [ngValue]="period">
-                                        {{period}}
-                                    </option>
-                                </select> seconds
+                                    @for (period of validPeriodsInSeconds; track period) {
+                                        <option [ngValue]="period">
+                                            {{ period }}
+                                        </option>
+                                    }
+                                </select>
+                                seconds
                             </li>
                             <li>
                                 <span class="countdown-type">Recall</span>
                                 <select formControlName="secondsToRespond">
-                                    <option *ngFor="let period of validPeriodsInSeconds" [ngValue]="period">
-                                        {{period}}
-                                    </option>
-                                </select> seconds
+                                    @for (period of validPeriodsInSeconds; track period) {
+                                        <option [ngValue]="period">
+                                            {{ period }}
+                                        </option>
+                                    }
+                                </select>
+                                seconds
                             </li>
                         </ul>
                     </app-options-card>

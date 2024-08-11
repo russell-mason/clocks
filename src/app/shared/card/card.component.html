@@ -1,2 +1,4 @@
-<div *ngIf="!!index" class="card-index">{{index}}</div>
+@if (!!index) {
+    <div class="card-index">{{ index }}</div>
+}
 <ng-content></ng-content>

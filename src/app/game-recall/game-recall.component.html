@@ -3,34 +3,46 @@
 
     <section class="content">
         <form [formGroup]="form">
-            <div formArrayName="guesses" class="layout"
-                [ngClass]="true ? 'count-' + form.controls.guesses.controls.length.toString() : ''">
-
-                <ng-container *ngIf="gameOptions$ |async as gameOptions">
+            <div
+                formArrayName="guesses"
+                class="layout"
+                [ngClass]="true ? 'count-' + form.controls.guesses.controls.length.toString() : ''"
+            >
+                @if (gameOptions$ | async; as gameOptions) {
                     <div class="cards-layout">
-                        <app-card *ngFor="let guess of form.controls.guesses.controls; let index=index" [index]="index + 1"
-                            [isSelected]="index === selectedIndex" (click)="onSelectedIndexChange(index)">
+                        @for (guess of form.controls.guesses.controls; track guess; let index = $index) {
+                            <app-card
+                                [index]="index + 1"
+                                [isSelected]="index === selectedIndex"
+                                (click)="onSelectedIndexChange(index)"
+                            >
+                                <div class="clock-time">
+                                    <app-clock-face
+                                        [time]="getGuessTime(index)"
+                                        [dialOptions]="gameOptions.dialOptions"
+                                    >
+                                    </app-clock-face>
 
-                            <div class="clock-time">
-                                <app-clock-face [time]="getGuessTime(index)" [dialOptions]="gameOptions.dialOptions">
-                                </app-clock-face>
-
-                                <p class="time">&nbsp;{{getFormattedGuess(index, gameOptions)}}&nbsp;</p>
-                            </div>
-                        </app-card>
+                                    <p class="time">&nbsp;{{ getFormattedGuess(index, gameOptions) }}&nbsp;</p>
+                                </div>
+                            </app-card>
+                        }
                     </div>
 
-                    <app-number-pad appInitialFocus=".layout" [displayValue]="getGuess(selectedIndex)"
+                    <app-number-pad
+                        appInitialFocus=".layout"
+                        [displayValue]="getGuess(selectedIndex)"
                         [displayValueAccepted]="!!getGuessTime(selectedIndex)"
                         [maxLength]="gameOptions.dialOptions.showSecondHand ? 6 : 4"
-                        (valueChanged)="onNumberPadChange($event)">
+                        (valueChanged)="onNumberPadChange($event)"
+                    >
                     </app-number-pad>
-                </ng-container>
+                }
             </div>
         </form>
     </section>
 
-    <app-footer-block heading="{{countdown$ | async}} seconds remaining">
+    <app-footer-block heading="{{ countdown$ | async }} seconds remaining">
         <app-svg-image-button icon="check" caption="check" (click)="onNext()" appEnterClick></app-svg-image-button>
     </app-footer-block>
 </main>

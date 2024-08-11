@@ -2,22 +2,20 @@
     <app-header-block heading="MEMORIZE"></app-header-block>
 
     <section class="content">
-        <ng-container *ngIf="gameOptions$ | async as gameOptions">
-            <ng-container *ngIf="times$ | async as times">
-
+        @if (gameOptions$ | async; as gameOptions) {
+            @if (times$ | async; as times) {
                 <div class="layout" [ngClass]="true ? 'count-' + times.length.toString() : ''">
-                    <app-card *ngFor="let time of times; let index = index" [index]="index + 1">
-                        <app-clock-face [time]="time" [dialOptions]="gameOptions.dialOptions">
-                        </app-clock-face>
-                    </app-card>
+                    @for (time of times; track time; let index = $index) {
+                        <app-card [index]="index + 1">
+                            <app-clock-face [time]="time" [dialOptions]="gameOptions.dialOptions"> </app-clock-face>
+                        </app-card>
+                    }
                 </div>
-
-            </ng-container>
-        </ng-container>
-
+            }
+        }
     </section>
 
-    <app-footer-block heading="{{countdown$ | async}} seconds remaining">
+    <app-footer-block heading="{{ countdown$ | async }} seconds remaining">
         <app-svg-image-button icon="stop" caption="stop" (click)="onNext()" appEnterClick></app-svg-image-button>
     </app-footer-block>
 </main>
