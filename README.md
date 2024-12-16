@@ -25,10 +25,13 @@ Play live here: www.russellmason.com/games/clocks
         npm install
 
 4.  Run the app<br>
-    Using the Angular CLI:<br>
+    Using the Angular CLI *:<br>
 
-        ng serve -o
+        ng serve --no-hmr -o
 
-    You can also use the npm script:
+    You can also use the npm script *:
 
         npm start -- -o
+
+\* This temporarily disables HMR due to to an open issue 
+https://github.com/angular/angular/issues/59058

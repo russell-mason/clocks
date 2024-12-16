@@ -18,18 +18,17 @@ import { GameService } from 'app/shared/game';
  * The user can continue prior to the countdown completing to gain a higher score.
  */
 @Component({
-    standalone: true,
     selector: 'app-game-memorize',
     templateUrl: './game-memorize.component.html',
     styleUrls: ['./game-memorize.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        CommonModule, 
-        HeaderBlockComponent, 
-        CardComponent, 
-        ClockFaceComponent, 
-        FooterBlockComponent, 
-        SvgImageButtonComponent, 
+        CommonModule,
+        HeaderBlockComponent,
+        CardComponent,
+        ClockFaceComponent,
+        FooterBlockComponent,
+        SvgImageButtonComponent,
         EnterClickDirective
     ]
 })

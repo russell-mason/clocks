@@ -5,7 +5,6 @@ import { CardComponent, CardContentComponent, CardHeadingComponent } from 'app/s
  * Component that represents a visual container with a styled heading and custom content.
  */
 @Component({
-    standalone: true,
     selector: 'app-options-card',
     templateUrl: './options-card.component.html',
     styleUrls: ['./options-card.component.scss'],

@@ -1,6 +1,7 @@
 <app-svg-store></app-svg-store>
 <div appTrackViewport class="page" [ngClass]="themeName">
-    <!-- Uncomment app-responsive-guide to show current viewport size -->
-    <!-- <app-responsive-guide></app-responsive-guide> -->
+    @if (showGuide) {
+        <app-responsive-guide></app-responsive-guide>
+    }
     <router-outlet></router-outlet>
 </div>

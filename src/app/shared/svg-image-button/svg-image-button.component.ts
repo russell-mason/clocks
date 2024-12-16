@@ -6,7 +6,6 @@ import { Icon } from './icon';
  * Component that represents a simple button with an SVG image, and an optional caption.
  */
 @Component({
-    standalone: true,
     selector: 'app-svg-image-button',
     templateUrl: './svg-image-button.component.html',
     styleUrls: ['./svg-image-button.component.scss'],

@@ -2,6 +2,7 @@
 @use 'src/styles/colors' as *;
 @use 'src/styles/sizes' as *;
 @use 'src/styles/viewports' as *;
+@use "sass:color";
 
 $padding-sides: 1rem;
 $padding-sides-large: 1.5rem;
@@ -15,7 +16,7 @@ h2 {
     margin: $outline-gap;
     border-radius: $content-radius $content-radius 0 0;
     color: $secondary-color;
-    background: linear-gradient(0, $secondary-background-color 10%, darken($secondary-background-color, 5%) 90%);
+    background: linear-gradient(0, $secondary-background-color 10%, color.adjust($secondary-background-color, $lightness: -5%) 90%);
     padding: 0.3rem $padding-sides 0.4rem $padding-sides;
 }
 

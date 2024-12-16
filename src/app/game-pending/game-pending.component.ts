@@ -5,7 +5,6 @@ import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } f
  * Component that represents a pause allowing the user to start the game when they're ready.
  */
 @Component({
-    standalone: true,
     selector: 'app-game-pending',
     templateUrl: './game-pending.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,

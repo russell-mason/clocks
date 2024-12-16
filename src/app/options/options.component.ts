@@ -22,7 +22,6 @@ interface GameOptionsForm {
  * Component that coordinates the change of options used within the game.
  */
 @Component({
-    standalone: true,
     selector: 'app-options',
     templateUrl: './options.component.html',
     styleUrls: ['./options.component.scss'],

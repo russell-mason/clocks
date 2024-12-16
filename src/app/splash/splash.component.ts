@@ -10,7 +10,6 @@ import { HeaderBlockComponent } from 'app/shared';
  * This isn't a real splash screen, that's handled in the index.html page using a simple message.
  */
 @Component({
-    standalone: true,
     selector: 'app-splash',
     templateUrl: './splash.component.html',
     styleUrls: ['./splash.component.scss'],

@@ -7,7 +7,6 @@ import { OptionsCardComponent } from 'app/options-card/options-card.component';
  * Provides a basic overview and detailed help.
  */
 @Component({
-    standalone: true,
     selector: 'app-introduction',
     templateUrl: './introduction.component.html',
     styleUrls: ['./introduction.component.scss'],

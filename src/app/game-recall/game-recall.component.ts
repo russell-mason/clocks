@@ -36,20 +36,19 @@ interface GuessesForm {
  * Component allowing the user to enter their guesses.
  */
 @Component({
-    standalone: true,
     selector: 'app-game-recall',
     templateUrl: './game-recall.component.html',
     styleUrls: ['./game-recall.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        CommonModule, 
-        ReactiveFormsModule, 
-        HeaderBlockComponent, 
-        CardComponent, 
-        ClockFaceComponent, 
-        NumberPadComponent, 
-        FooterBlockComponent, 
-        SvgImageButtonComponent, 
+        CommonModule,
+        ReactiveFormsModule,
+        HeaderBlockComponent,
+        CardComponent,
+        ClockFaceComponent,
+        NumberPadComponent,
+        FooterBlockComponent,
+        SvgImageButtonComponent,
         InitialFocusDirective
     ]
 })

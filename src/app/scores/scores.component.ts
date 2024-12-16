@@ -9,20 +9,19 @@ import { GameScoreCardComponent } from 'app/game-score-card/game-score-card.comp
  * Component that displays scores for the game just played and total scores accumulated over time.
  */
 @Component({
-    standalone: true,
     selector: 'app-scores',
     templateUrl: './scores.component.html',
     styleUrls: ['./scores.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        CommonModule, 
-        HeaderBlockComponent, 
-        CardComponent, 
+        CommonModule,
+        HeaderBlockComponent,
+        CardComponent,
         SessionScoreCardComponent,
         GameScoreCardComponent,
-        FooterBlockComponent, 
+        FooterBlockComponent,
         SvgImageButtonComponent
-    ],
+    ]
 })
 export class ScoresComponent {
     /**

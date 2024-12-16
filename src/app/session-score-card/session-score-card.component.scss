@@ -1,5 +1,6 @@
 @use 'src/styles/colors' as *;
 @use 'src/styles/viewports' as *;
+@use "sass:color";
 
 @mixin session-score-layout-six-by-one {
     app-card {
@@ -16,16 +17,16 @@
 @mixin session-score-lighten($from, $to) {
     background: linear-gradient(
         0,
-        lighten($primary-background-color, $from) 10%,
-        lighten($primary-background-color, $to) 90%
+        color.adjust($primary-background-color, $lightness: $from) 10%,
+        color.adjust($primary-background-color, $lightness: $to) 90%
     );
 }
 
 @mixin session-score-darken($from, $to) {
     background: linear-gradient(
         0,
-        darken($primary-background-color, $from) 10%,
-        darken($primary-background-color, $to) 90%
+        color.adjust($primary-background-color, $lightness: $from) 10%,
+        color.adjust($primary-background-color, $lightness: $to) 90%
     );
 }
 
@@ -61,23 +62,23 @@ app-card {
 }
 
 .games-played {
-    @include session-score-darken(5%, 10%);
+    @include session-score-darken(-5%, -10%);
 }
 
 .clocks-displayed {
-    @include session-score-darken(5%, 10%);
+    @include session-score-darken(-5%, -10%);
 }
 
 .correct {
-    @include session-score-darken(10%, 15%);
+    @include session-score-darken(-10%, -15%);
 }
 
 .partially-correct {
-    @include session-score-darken(10%, 15%);
+    @include session-score-darken(-10%, -15%);
 }
 
 .incorrect {
-    @include session-score-darken(10%, 15%);
+    @include session-score-darken(-10%, -15%);
 }
 
 @include for-viewports($small) {

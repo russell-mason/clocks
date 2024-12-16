@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Light (default)
 $focus-color: #0000ff;
 $shadow-color: #00000050;
@@ -19,7 +21,7 @@ $incorrect-color: #e66a4e;
 
 $card-border-color: #d0d0d0;
 $card-index-color: #2b2b2b;
-$card-background-color: lighten($default-background-color, 15%);
+$card-background-color: color.adjust($default-background-color, $lightness: 15%);
 
 $clock-face-background-outline-color: #78797b;
 $clock-face-background-color: #3e3e3e;
@@ -53,4 +55,4 @@ $default-color-dark: #ededed;
 $default-color-dark-soften: #8d8d8d;
 $default-background-color-dark: #3b3c3d;
 
-$card-background-color-dark: darken($default-background-color-dark, 4%);
+$card-background-color-dark: color.adjust($default-background-color-dark, $lightness: -4%);

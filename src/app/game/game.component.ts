@@ -11,7 +11,6 @@ import { ScoresComponent } from 'app/scores/scores.component';
  * Responds to changes in the game and selects different components.
  */
 @Component({
-    standalone: true,
     selector: 'app-game',
     templateUrl: './game.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,

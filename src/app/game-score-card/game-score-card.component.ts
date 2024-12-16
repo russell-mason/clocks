@@ -7,7 +7,6 @@ import { CardComponent, ClockFaceComponent } from 'app/shared';
  * Component that represents the score for a single guess against a time.
  */
 @Component({
-    standalone: true,
     selector: 'app-game-score-card',
     templateUrl: './game-score-card.component.html',
     styleUrls: ['./game-score-card.component.scss'],
