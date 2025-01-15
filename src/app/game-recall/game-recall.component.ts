@@ -3,10 +3,10 @@ import {
   OnInit,
   OnDestroy,
   ChangeDetectionStrategy,
-  ViewChild,
   HostListener,
   inject,
-  output
+  output,
+  viewChild
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -62,6 +62,9 @@ export class GameRecallComponent implements OnInit, OnDestroy {
 
     private times$: Observable<Time[]> = this.gameService.times$;
 
+    private readonly numberPad = viewChild(NumberPadComponent);
+    private readonly initialFocus = viewChild(InitialFocusDirective);
+
     /**
      * Creates an instance of GameRecallComponent.
      */
@@ -73,15 +76,6 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      * Type alias for template binding.
      */
     public Time = Time;
-
-    /**
-     * Gets the number pad component for synchronization.
-     */
-    @ViewChild(NumberPadComponent)
-    public numberPad: NumberPadComponent;
-
-    @ViewChild(InitialFocusDirective)
-    public initialFocus: InitialFocusDirective;
 
     /**
      * Occurs when the "next" button is clicked.
@@ -216,10 +210,10 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     public onSelectedIndexChange(index: number) {
         this.selectedIndex = index;
 
-        this.numberPad.setValue(this.form.controls.guesses.controls[index].value);
+        this.numberPad().setValue(this.form.controls.guesses.controls[index].value);
 
         // Automatically reset focus back to the number pad
-        this.initialFocus.reset();
+        this.initialFocus().reset();
     }
 
     /**
