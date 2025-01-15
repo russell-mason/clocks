@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { 
@@ -38,8 +38,7 @@ export class GameMemorizeComponent {
     /**
      * Occurs when the "next" button is clicked.
      */
-    @Output()
-    public readonly next = new EventEmitter<any>();
+    public readonly next = output();
 
     /**
      * Gets a stream emitting the currently selected game options.

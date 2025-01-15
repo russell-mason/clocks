@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, output } from '@angular/core';
 import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
 
 /**
@@ -14,8 +14,7 @@ export class GamePendingComponent {
     /**
      * Occurs when the "next" button is clicked.
      */
-    @Output()
-    public next = new EventEmitter<any>();
+    public readonly next = output();
 
     /**
      * Raises the "next" event.

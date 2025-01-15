@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, HostListener, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy, input, output } from '@angular/core';
 
 /**
  * Component that represents a simple number pad and display.
@@ -39,8 +39,7 @@ export class NumberPadComponent {
      * Occurs when the value has changed, either from a number typed on the keyboard, clicked via the mouse,
      * or through clear, or delete.
      */
-    @Output()
-    public readonly valueChanged = new EventEmitter<string>();
+    public readonly valueChanged = output<string>();
 
     /**
      * Responds to keyboard input.

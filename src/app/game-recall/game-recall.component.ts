@@ -1,13 +1,12 @@
 import {
-    Component,
-    Output,
-    EventEmitter,
-    OnInit,
-    OnDestroy,
-    ChangeDetectionStrategy,
-    ViewChild,
-    HostListener,
-    inject
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ViewChild,
+  HostListener,
+  inject,
+  output
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -87,8 +86,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     /**
      * Occurs when the "next" button is clicked.
      */
-    @Output()
-    public readonly next = new EventEmitter();
+    public readonly next = output();
 
     /**
      * Gets a stream that emits when game options change.
