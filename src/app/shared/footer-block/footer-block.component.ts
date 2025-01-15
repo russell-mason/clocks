@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 /**
  * Component that represents a simple page footer strip with a title and custom content.
@@ -14,6 +14,5 @@ export class FooterBlockComponent {
     /**
      * Gets or sets the text to display.
      */
-    @Input()
-    public heading: string;
+    public readonly heading = input.required<string>();
 }

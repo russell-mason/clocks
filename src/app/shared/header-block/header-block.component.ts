@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 /**
  * Component that represents a simple page header strip with a title.
@@ -14,6 +14,5 @@ export class HeaderBlockComponent {
     /**
      * Gets or sets the text to display.
      */
-    @Input()
-    public heading: string;
+    public readonly heading = input.required<string>();
 }

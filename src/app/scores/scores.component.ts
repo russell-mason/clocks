@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService, ScoringService } from 'app/shared/game';
 import { CardComponent, HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
@@ -37,8 +37,7 @@ export class ScoresComponent {
     /**
      * Gets or sets whether to display a message that indicates the game ended due to time running out.
      */
-    @Input()
-    public showTimeoutMessage: boolean;
+    public readonly showTimeoutMessage = input.required<boolean>();
 
     /**
      * Gets a stream that emits scores for the current game.

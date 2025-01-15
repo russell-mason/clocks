@@ -3,7 +3,7 @@
 
     <section class="content">
         <div class="layout-constraint">
-            @if (showTimeoutMessage) {
+            @if (showTimeoutMessage()) {
                 <app-card class="timeout-message">
                     Time's up! Your score with be based on the entries available when the time ran out.
                 </app-card>

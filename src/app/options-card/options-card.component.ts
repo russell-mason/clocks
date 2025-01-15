@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CardComponent, CardContentComponent, CardHeadingComponent } from 'app/shared';
 
 /**
@@ -14,6 +14,5 @@ export class OptionsCardComponent {
     /**
      * Gets or sets text to display in the heading.
      */
-    @Input()
-    public heading: string;
+    public readonly heading = input.required<string>();
 }

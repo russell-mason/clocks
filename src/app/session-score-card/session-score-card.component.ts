@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { SessionScore } from 'app/shared/game';
 import { CardComponent } from 'app/shared';
 
@@ -16,6 +16,5 @@ export class SessionScoreCardComponent {
     /**
      * Gets or sets the accumulative scores from all games.
      */
-    @Input()
-    public score: SessionScore;
+    public readonly score = input.required<SessionScore>();
 }

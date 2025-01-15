@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, HostListener, ChangeDetectionStrategy, input } from '@angular/core';
 
 /**
  * Component that represents a simple number pad and display.
@@ -19,15 +19,13 @@ export class NumberPadComponent {
     /**
      * Gets or sets the maximum number of digits accepted before the pad becomes disabled.
      */
-    @Input()
-    public maxLength = 20;
+    public readonly maxLength = input(20);
 
     /**
      * Gets or sets the value displayed. This is not done automatically.
      * Respond to the "valueChanged" event and set this based on custom logic.
      */
-    @Input()
-    public displayValue: string;
+    public readonly displayValue = input.required<string>();
 
     /**
      * Gets or sets whether the value displayed is seen as acceptable within the context of the component's use.
@@ -35,8 +33,7 @@ export class NumberPadComponent {
      * typed.
      * A visual cue is used to distinguish the two states.
      */
-    @Input()
-    public displayValueAccepted: boolean;
+    public readonly displayValueAccepted = input.required<boolean>();
 
     /**
      * Occurs when the value has changed, either from a number typed on the keyboard, clicked via the mouse,
@@ -73,7 +70,7 @@ export class NumberPadComponent {
      * When the maximum number of allowed digits have been entered, the control will be disabled.
      */
     public get isEnabled(): boolean {
-        return this.value.length < this.maxLength;
+        return this.value.length < this.maxLength();
     }
 
     /**

@@ -1,35 +1,35 @@
-<app-card [index]="index + 1">
+<app-card [index]="index() + 1">
     <div class="card-content">
         <div class="time align-center">
-            <app-clock-face [time]="score.time" [dialOptions]="score.gameOptions.dialOptions"></app-clock-face>
-            <p class="valid">{{ score.time.toString(score.gameOptions.dialOptions.showSecondHand) }}</p>
+            <app-clock-face [time]="score().time" [dialOptions]="score().gameOptions.dialOptions"></app-clock-face>
+            <p class="valid">{{ score().time.toString(score().gameOptions.dialOptions.showSecondHand) }}</p>
         </div>
 
         <div class="guess align-center">
-            <app-clock-face [time]="score.guess" [dialOptions]="score.gameOptions.dialOptions"></app-clock-face>
+            <app-clock-face [time]="score().guess" [dialOptions]="score().gameOptions.dialOptions"></app-clock-face>
 
-            @if (score.guess) {
-                <p class="valid" [ngClass]="getAccuracyClass(score)">
-                    {{ score.guess.toString(score.gameOptions.dialOptions.showSecondHand) }}
+            @if (score().guess) {
+                <p class="valid" [ngClass]="getAccuracyClass(score())">
+                    {{ score().guess.toString(score().gameOptions.dialOptions.showSecondHand) }}
                 </p>
             }
 
-            @if (!score.guess) {
+            @if (!score().guess) {
                 <p class="invalid">No valid time</p>
             }
         </div>
 
         <div class="result">
             <div class="correctness align-center">
-                <svg [ngClass]="getAccuracyIcon(score)" class="svg-icon">
-                    <use attr.href="#{{ getAccuracyIcon(score) }}" />
+                <svg [ngClass]="getAccuracyIcon(score())" class="svg-icon">
+                    <use attr.href="#{{ getAccuracyIcon(score()) }}" />
                 </svg>
-                <p [ngClass]="getAccuracyClass(score)">{{ getAccuracy(score) }}</p>
+                <p [ngClass]="getAccuracyClass(score())">{{ getAccuracy(score()) }}</p>
             </div>
 
             <div class="score align-center">
                 <p>Score</p>
-                <p class="score-value">{{ score.score }}</p>
+                <p class="score-value">{{ score().score }}</p>
             </div>
         </div>
     </div>

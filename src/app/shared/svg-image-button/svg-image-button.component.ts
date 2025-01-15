@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Icon } from './icon';
 
@@ -15,15 +15,13 @@ export class SvgImageButtonComponent {
     /**
      * Gets or sets the type of icon to display.
      */
-    @Input()
-    public icon: Icon;
+    public readonly icon = input.required<Icon>();
 
     /**
      * Gets or sets the caption to display under the icon.
      * If not specified, no caption is displayed and no space is allocated for it.
      */
-    @Input()
-    public caption: string;
+    public readonly caption = input<string>();
 
     /**
      * Gets or set the route to navigate to.
@@ -31,6 +29,5 @@ export class SvgImageButtonComponent {
      * If not specified no navigation will occur, and it's up to the consumer of the component to handle the
      * standard "click" event.
      */
-    @Input()
-    public routerLink: string;
+    public readonly routerLink = input<string>();
 }

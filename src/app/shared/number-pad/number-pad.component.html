@@ -1,6 +1,6 @@
 <div class="layout" tabIndex="0">
-    <div class="display" [class.displayValueAccepted]="displayValueAccepted">
-        <div class="text">{{displayValue}}&nbsp;</div>
+    <div class="display" [class.displayValueAccepted]="displayValueAccepted()">
+        <div class="text">{{displayValue()}}&nbsp;</div>
     </div>
 
     <button tabIndex="-1" (click)="onNumberClick(1)" [class.disabled]="!isEnabled">1</button>

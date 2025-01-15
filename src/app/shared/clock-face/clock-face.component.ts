@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { Time, Meridiem } from 'app/shared/time';
 import { DialOptions, DialInterval } from 'app/shared/options';
 
@@ -17,36 +17,35 @@ export class ClockFaceComponent {
      * Gets or sets the time to display on the clock face.
      * If no time is set, the face is displayed with no hands.
      */
-    @Input()
-    public time: Time;
+    public readonly time = input.required<Time>();
 
     /**
      * Gets or sets options which dictate how the clock face is displayed.
      */
-    @Input()
-    public dialOptions: DialOptions;
+    public readonly dialOptions = input.required<DialOptions>();
 
     /**
      * Gets whether the second hand should be displayed.
      */
     public get showSeconds(): boolean {
-        return this.dialOptions.showSecondHand;
+        return this.dialOptions().showSecondHand;
     }
 
     /**
      * Gets whether quarter-hour interval markers should be displayed.
      */
     public get showQuarterHourIntervals(): boolean {
-        return this.dialOptions.dialInterval !== DialInterval.none;
+        return this.dialOptions().dialInterval !== DialInterval.none;
     }
 
     /**
      * Gets whether five-minute interval markers should be displayed.
      */
     public get showFiveMinuteIntervals(): boolean {
+        const dialOptions = this.dialOptions();
         return (
-            this.dialOptions.dialInterval === DialInterval.fiveMinute ||
-            this.dialOptions.dialInterval === DialInterval.minute
+            dialOptions.dialInterval === DialInterval.fiveMinute ||
+            dialOptions.dialInterval === DialInterval.minute
         );
     }
 
@@ -54,55 +53,55 @@ export class ClockFaceComponent {
      * Gets whether one-minute interval markers should be displayed.
      */
     public get showMinuteIntervals(): boolean {
-        return this.dialOptions.dialInterval === DialInterval.minute;
+        return this.dialOptions().dialInterval === DialInterval.minute;
     }
 
     /**
      * Gets the angle of the hour hand.
      */
     public get hourHandDegrees(): number {
-        return 30 * (this.time.hours % 12) + this.time.minutes / 2;
+        return 30 * (this.time().hours % 12) + this.time().minutes / 2;
     }
 
     /**
      * Gets the angle of the minute hand.
      */
     public get minuteHandDegrees(): number {
-        return 6 * this.time.minutes;
+        return 6 * this.time().minutes;
     }
 
     /**
      * Gets the angle of the second hand.
      */
     public get secondHandDegrees(): number {
-        return 6 * this.time.seconds;
+        return 6 * this.time().seconds;
     }
 
     /**
      * Gets whether the am/pm indicators should be displayed.
      */
     public get showMeridiemIndicator(): boolean {
-        return this.dialOptions.isTwentyFourHour;
+        return this.dialOptions().isTwentyFourHour;
     }
 
     /**
      * Gets whether a valid time is available.
      */
     public get hasTime(): boolean {
-        return !!this.time;
+        return !!this.time();
     }
 
     /**
      * Gets whether the current time is in the morning.
      */
     public get isAm(): boolean {
-        return this.hasTime && this.time.meridiem === Meridiem.ante;
+        return this.hasTime && this.time().meridiem === Meridiem.ante;
     }
 
     /**
      * Gets whether the current time is in the afternoon.
      */
     public get isPm(): boolean {
-        return this.hasTime && this.time.meridiem === Meridiem.post;
+        return this.hasTime && this.time().meridiem === Meridiem.post;
     }
 }

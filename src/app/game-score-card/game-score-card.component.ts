@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameScore } from 'app/shared/game';
 import { CardComponent, ClockFaceComponent } from 'app/shared';
@@ -17,14 +17,12 @@ export class GameScoreCardComponent {
     /**
      * Gets of sets the card index to distinguish which clock is which when multiple times are displayed.
      */
-    @Input()
-    public index: number;
+    public readonly index = input.required<number>();
 
     /**
      * Gets or sets the game score for the last completed game.
      */
-    @Input()
-    public score: GameScore;
+    public readonly score = input.required<GameScore>();
 
     /**
      * Determine how accurate the guess was:

@@ -1,13 +1,13 @@
-<button [routerLink]="routerLink">
+<button [routerLink]="routerLink()">
     <div class="svg-button">
         <svg class="svg-icon-background">
             <use href="#icon-background" />
         </svg>
         <svg class="svg-icon">
-            <use attr.href="#{{ icon }}-icon" />
+            <use attr.href="#{{ icon() }}-icon" />
         </svg>
     </div>
-    @if (!!caption) {
-        <p class="caption">{{ caption }}</p>
+    @if (!!caption()) {
+        <p class="caption">{{ caption() }}</p>
     }
 </button>
