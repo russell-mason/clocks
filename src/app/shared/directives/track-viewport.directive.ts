@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, AfterViewInit, inject } from '@angular/core';
 
 /**
  * List of available viewport sizes and names (used as class names).
@@ -43,7 +43,7 @@ const viewportSizes = [
     selector: '[appTrackViewport]'
 })
 export class TrackViewportDirective implements AfterViewInit {
-    constructor(private element: ElementRef) {}
+    private element = inject(ElementRef);
 
     /**
      * Sets the class once the full view is available.

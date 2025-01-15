@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService, ScoringService } from 'app/shared/game';
 import { CardComponent, HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
@@ -24,11 +24,14 @@ import { GameScoreCardComponent } from 'app/game-score-card/game-score-card.comp
     ]
 })
 export class ScoresComponent {
+    private gameService = inject(GameService);
+    private scoringService = inject(ScoringService);
+
     /**
      * Creates an instance of ScoresComponent.
      */
-    constructor(private gameService: GameService, private scoringService: ScoringService) {
-        scoringService.load();
+    constructor() {
+        this.scoringService.load();
     }
 
     /**

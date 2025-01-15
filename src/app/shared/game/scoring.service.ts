@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GameOptions, DialInterval } from 'app/shared/options';
 import { Time } from 'app/shared/time';
@@ -16,13 +16,10 @@ const SCORES_STORAGE_KEY = 'clocks.scores';
     providedIn: 'root'
 })
 export class ScoringService {
+    private localStorageService = inject(LocalStorageService);
+
     private gameScoresSubject = new BehaviorSubject<GameScore[]>([]);
     private sessionScoreSubject = new BehaviorSubject<SessionScore>(undefined);
-
-    /**
-     * Creates an instance of ScoringService.
-     */
-    constructor(private localStorageService: LocalStorageService) {}
 
     /**
      * Gets a stream that emits when the scores for an individual game are updated.

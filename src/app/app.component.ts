@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -16,12 +16,9 @@ import { environment } from 'src/environments/environment';
     imports: [CommonModule, RouterModule, SvgStoreComponent, ResponsiveGuideComponent, TrackViewportDirective]
 })
 export class AppComponent implements OnInit, OnDestroy {
+    private optionsService = inject(OptionsService);
+    
     private subscriptions: SubSink = new SubSink();
-
-    /**
-     * Creates an instance of AppComponent.
-     */
-    constructor(private optionsService: OptionsService) {}
 
     /**
      * Gets a value indicating whether to show the responsive guide.

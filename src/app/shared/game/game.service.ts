@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
 import { tap, first, takeWhile } from 'rxjs/operators';
 import { Game } from './game';
@@ -14,6 +14,9 @@ import { OptionsService, GameOptions, defaultGameOptions } from 'app/shared/opti
     providedIn: 'root'
 })
 export class GameService {
+    private optionsService = inject(OptionsService);
+    private scoringService = inject(ScoringService);
+    
     private currentGameStageSubject = new BehaviorSubject<GameStage>(GameStage.pending);
     private currentGameOptionsSubject = new BehaviorSubject<GameOptions>(defaultGameOptions);
     private timesSubject = new BehaviorSubject<Time[]>([]);
@@ -46,11 +49,6 @@ export class GameService {
     private get recallCountdown() {
         return this.recallCountdownSubject.getValue();
     }
-
-    /**
-     * Creates an instance of GameService.
-     */
-    constructor(private optionsService: OptionsService, private scoringService: ScoringService) {}
 
     /**
      * Gets a stream that emits as the flow of the game progresses.

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStage, GameService } from 'app/shared/game';
 import { GamePendingComponent } from 'app/game-pending/game-pending.component';
@@ -17,10 +17,7 @@ import { ScoresComponent } from 'app/scores/scores.component';
     imports: [CommonModule, GamePendingComponent, GameMemorizeComponent, GameRecallComponent, ScoresComponent]
 })
 export class GameComponent implements OnInit, OnDestroy {
-    /**
-     * Creates an instance of GameComponent.
-     */
-    constructor(private gameService: GameService) {}
+    private gameService = inject(GameService);
 
     /**
      * Type alias for template binding.

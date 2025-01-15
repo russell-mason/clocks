@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GameOptions, defaultGameOptions } from './game-options';
 import { LocalStorageService } from 'app/shared/storage';
@@ -12,12 +12,9 @@ const OPTIONS_STORAGE_KEY = 'clocks.options';
     providedIn: 'root'
 })
 export class OptionsService {
-    private gameOptionsSubject = new BehaviorSubject<GameOptions>(defaultGameOptions);
+    private localStorageService = inject(LocalStorageService);
 
-    /**
-     * Creates an instance of OptionsService.
-     */
-    constructor(private localStorageService: LocalStorageService) {}
+    private gameOptionsSubject = new BehaviorSubject<GameOptions>(defaultGameOptions);
 
     /**
      * Gets a stream that emits when game options change.

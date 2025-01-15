@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { 
@@ -33,10 +33,7 @@ import { GameService } from 'app/shared/game';
     ]
 })
 export class GameMemorizeComponent {
-    /**
-     * Creates an instance of GameMemorizeComponent.
-     */
-    constructor(private gameService: GameService) {}
+    private gameService = inject(GameService);
 
     /**
      * Occurs when the "next" button is clicked.

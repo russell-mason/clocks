@@ -6,7 +6,8 @@ import {
     OnDestroy,
     ChangeDetectionStrategy,
     ViewChild,
-    HostListener
+    HostListener,
+    inject
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -53,6 +54,8 @@ interface GuessesForm {
     ]
 })
 export class GameRecallComponent implements OnInit, OnDestroy {
+    private gameService = inject(GameService);
+
     private subscriptions: SubSink = new SubSink();
 
     private guessSubject = new BehaviorSubject<{ index: number; value: string }>(undefined);
@@ -63,7 +66,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     /**
      * Creates an instance of GameRecallComponent.
      */
-    constructor(private gameService: GameService) {
+    constructor() {
         this.form = this.createForm();
     }
 
