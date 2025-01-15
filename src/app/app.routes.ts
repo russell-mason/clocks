@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { SplashComponent } from './splash/splash.component';
-import { IntroductionComponent } from './introduction/introduction.component';
-import { OptionsComponent } from './options/options.component';
-import { GameComponent } from './game/game.component';
+
+
+
+
 
 export const routes: Routes = [
-    { path: 'splash', component: SplashComponent },
-    { path: 'introduction', component: IntroductionComponent },
-    { path: 'options', component: OptionsComponent },
-    { path: 'game', component: GameComponent },
+    { path: 'splash', loadComponent: () => import('./splash/splash.component').then(m => m.SplashComponent) },
+    { path: 'introduction', loadComponent: () => import('./introduction/introduction.component').then(m => m.IntroductionComponent) },
+    { path: 'options', loadComponent: () => import('./options/options.component').then(m => m.OptionsComponent) },
+    { path: 'game', loadComponent: () => import('./game/game.component').then(m => m.GameComponent) },
     { path: '', pathMatch: 'full', redirectTo: 'splash' }
 ];
