@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
-import { tap, first, takeWhile } from 'rxjs/operators';
+import { tap, takeWhile } from 'rxjs/operators';
 import { Game } from './game';
 import { GameStage } from './game-stage.enum';
 import { ScoringService } from './scoring.service';
@@ -95,12 +95,7 @@ export class GameService {
         this.currentGameStageSubject.next(GameStage.pending);
 
         // Take a snapshot of the current game options. This is a synchronous operation
-        this.optionsService.gameOptions$
-            .pipe(
-                first(),
-                tap(gameOptions => this.currentGameOptionsSubject.next(gameOptions))
-            )
-            .subscribe();
+        this.currentGameOptionsSubject.next(this.optionsService.gameOptions());
 
         // Emit defaults
         this.guessesSubject.next([]);

@@ -1,5 +1,4 @@
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
 import { GameOptions, defaultGameOptions } from './game-options';
 import { LocalStorageService } from 'app/shared/storage';
 
@@ -14,23 +13,23 @@ const OPTIONS_STORAGE_KEY = 'clocks.options';
 export class OptionsService {
     private localStorageService = inject(LocalStorageService);
 
-    private gameOptionsSubject = new BehaviorSubject<GameOptions>(defaultGameOptions);
+    private gameOptionsSignal = signal<GameOptions>(defaultGameOptions);
 
     /**
-     * Gets a stream that emits when game options change.
+     * Gets game options.
      */
-    public readonly gameOptions$ = this.gameOptionsSubject.asObservable();
+    public readonly gameOptions = this.gameOptionsSignal.asReadonly();
 
     /**
      * Loads game options from local storage.
-     * You can get the latest options from gameOptions$.
+     * You can get the latest options from gameOptions.
      *
      * @see gameOptions$
      */
     public load(): void {
         const gameOptions = this.localStorageService.getObject(OPTIONS_STORAGE_KEY, defaultGameOptions);
 
-        this.gameOptionsSubject.next(gameOptions);
+        this.gameOptionsSignal.set(gameOptions);
     }
 
     /**
@@ -41,6 +40,6 @@ export class OptionsService {
     public save(gameOptions: GameOptions): void {
         this.localStorageService.setObject(OPTIONS_STORAGE_KEY, gameOptions);
 
-        this.gameOptionsSubject.next(gameOptions);
+        this.gameOptionsSignal.set(gameOptions);
     }
 }

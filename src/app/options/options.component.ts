@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, inject, effect } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
@@ -31,6 +31,8 @@ interface GameOptionsForm {
 export class OptionsComponent implements OnInit, OnDestroy {
     private subscriptions = new SubSink();
     private optionsService: OptionsService = inject(OptionsService);
+
+    private syncGameOptions = effect(() =>  this.modelToForm(this.optionsService.gameOptions()));
 
     /**
      * Creates an instance of OptionsComponent.
@@ -65,13 +67,9 @@ export class OptionsComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.optionsService.load();
 
-        const gameOptionsChange$ = this.optionsService.gameOptions$.pipe(
-            tap(gameOptions => this.modelToForm(gameOptions))
-        );
-
         const formChange$ = this.form.valueChanges.pipe(tap(_ => this.formToModel()));
 
-        this.subscriptions.add(gameOptionsChange$.subscribe(), formChange$.subscribe());
+        this.subscriptions.add(formChange$.subscribe());
     }
 
     /**

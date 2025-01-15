@@ -1,8 +1,6 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 import { Theme, OptionsService } from 'app/shared/options';
 import { SvgStoreComponent, ResponsiveGuideComponent, TrackViewportDirective } from 'app/shared';
 import { environment } from 'src/environments/environment';
@@ -15,10 +13,8 @@ import { environment } from 'src/environments/environment';
     templateUrl: './app.component.html',
     imports: [CommonModule, RouterModule, SvgStoreComponent, ResponsiveGuideComponent, TrackViewportDirective]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
     private optionsService = inject(OptionsService);
-    
-    private subscriptions: SubSink = new SubSink();
 
     /**
      * Gets a value indicating whether to show the responsive guide.
@@ -26,31 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public showGuide = environment.showGuide;
 
     /**
-     * Gets or sets the name of the current theme for styling purposes.
+     * Gets or sets the current theme for styling purposes.
      */
-    public themeName: string;
-
-    /**
-     * Load user options from storage and setup reactive subscriptions for themes.
-     */
-    public ngOnInit(): void {
-        this.optionsService.load();
-
-        this.subscriptions.add(
-            this.optionsService.gameOptions$
-                .pipe(
-                    tap(gameOptions => {
-                        this.themeName = Theme[gameOptions.theme];
-                    })
-                )
-                .subscribe()
-        );
-    }
-
-    /**
-     * Cleans up reactive subscriptions.
-     */
-    public ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
-    }
+    public theme = computed(() => Theme[this.optionsService.gameOptions().theme]);
 }
