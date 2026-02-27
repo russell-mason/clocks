@@ -56,7 +56,7 @@ export class TrackViewportDirective implements AfterViewInit {
      *  Sets the class ever time the window changes size.
      */
     @HostListener('window:resize', ['$event'])
-    private handleElementOnResize(event: any): void {
+    public handleElementOnResize(event: any): void {
         this.setViewportClass();
     }
 

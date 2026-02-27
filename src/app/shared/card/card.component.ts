@@ -12,10 +12,10 @@ import { Component, ChangeDetectionStrategy, HostBinding, input, effect } from '
 })
 export class CardComponent {
     // For HostBinding synchronization
-    private syncIsSelected = effect(() => this.hasSelectedClass = this.isSelected());
+    private syncIsSelected = effect(() => (this.hasSelectedClass = this.isSelected()));
 
     @HostBinding('class.selected')
-    private hasSelectedClass = false;
+    public hasSelectedClass = false;
 
     /**
      * Gets or sets whether the card is selected. When true a visual cue is displayed.

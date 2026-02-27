@@ -18,7 +18,7 @@ export class EnterClickDirective {
      * Listens to the enter key on the document and translates it into a click event on the associated element.
      */
     @HostListener('document:keyup.enter')
-    private handleDocumentKeyup(): void {
+    public handleDocumentKeyup(): void {
         this.element.nativeElement.click();
     }
 }
