@@ -2,8 +2,8 @@
     <app-header-block heading="MEMORIZE"></app-header-block>
 
     <section class="content">
-        @if (gameOptions$ | async; as gameOptions) {
-            @if (times$ | async; as times) {
+        @if (gameOptions(); as gameOptions) {
+            @if (times(); as times) {
                 <div class="layout" [ngClass]="true ? 'count-' + times.length.toString() : ''">
                     @for (time of times; track time; let index = $index) {
                         <app-card [index]="index + 1">
@@ -15,7 +15,7 @@
         }
     </section>
 
-    <app-footer-block heading="{{ countdown$ | async }} seconds remaining">
+    <app-footer-block heading="{{ countdown() }} seconds remaining">
         <app-svg-image-button icon="stop" caption="stop" (click)="onNext()" appEnterClick></app-svg-image-button>
     </app-footer-block>
 </main>

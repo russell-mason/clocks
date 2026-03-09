@@ -1,4 +1,4 @@
-@switch (currentGameStage$ | async) {
+@switch (currentGameStage()) {
     @case (GameStage.pending) {
         <app-game-pending (next)="startCommitToMemoryCountdown()"> </app-game-pending>
     }

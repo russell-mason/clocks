@@ -8,7 +8,7 @@
                 class="layout"
                 [ngClass]="true ? 'count-' + form.controls.guesses.controls.length.toString() : ''"
             >
-                @if (gameOptions$ | async; as gameOptions) {
+                @if (gameOptions(); as gameOptions) {
                     <div class="cards-layout">
                         @for (guess of form.controls.guesses.controls; track guess; let index = $index) {
                             <app-card
@@ -42,7 +42,7 @@
         </form>
     </section>
 
-    <app-footer-block heading="{{ countdown$ | async }} seconds remaining">
+    <app-footer-block heading="{{ countdown() }} seconds remaining">
         <app-svg-image-button icon="check" caption="check" (click)="onNext()" appEnterClick></app-svg-image-button>
     </app-footer-block>
 </main>

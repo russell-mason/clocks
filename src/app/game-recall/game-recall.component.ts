@@ -1,18 +1,18 @@
 import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy,
-  HostListener,
-  inject,
-  output,
-  viewChild
+    Component,
+    OnInit,
+    OnDestroy,
+    ChangeDetectionStrategy,
+    HostListener,
+    inject,
+    output,
+    viewChild
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap, first, filter } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 import { Time } from 'app/shared/time';
 import { GameService } from 'app/shared/game';
@@ -60,8 +60,6 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     private guessSubject = new BehaviorSubject<{ index: number; value: string }>(undefined);
     private guess$ = this.guessSubject.asObservable();
 
-    private times$: Observable<Time[]> = this.gameService.times$;
-
     private readonly numberPad = viewChild(NumberPadComponent);
     private readonly initialFocus = viewChild(InitialFocusDirective);
 
@@ -83,14 +81,14 @@ export class GameRecallComponent implements OnInit, OnDestroy {
     public readonly next = output();
 
     /**
-     * Gets a stream that emits when game options change.
+     * Gets a signal that emits when game options change.
      */
-    public readonly gameOptions$ = this.gameService.currentGameOptions$;
+    public readonly gameOptions = this.gameService.currentGameOptions;
 
     /**
-     * Gets a stream that emits when the recall countdown changes.
+     * Gets a signal that emits when the recall countdown changes.
      */
-    public readonly countdown$ = this.gameService.recallCountdown$;
+    public readonly countdown = this.gameService.recallCountdown;
 
     /**
      * Gets the form containing user input.
@@ -106,15 +104,10 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      * Sets up coordination between the form and services.
      */
     public ngOnInit(): void {
-        // Stream that emits once to get the generated times used in the game
-        const timesChange$ = this.times$.pipe(
-            first(),
-            tap(times => {
-                const guessesControls = this.createGuessesFormControls(times.length);
+        // Initialize the guesses controls based on the generated times used in the game
+        const guessesControls = this.createGuessesFormControls(this.gameService.times().length);
 
-                guessesControls.forEach(guessesControl => this.form.controls.guesses.push(guessesControl));
-            })
-        );
+        guessesControls.forEach(guessesControl => this.form.controls.guesses.push(guessesControl));
 
         // Stream that emits when the form changes so the service can be synchronized
         const guessesChange$ = this.form.valueChanges.pipe(
@@ -131,7 +124,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
             })
         );
 
-        this.subscriptions.add(timesChange$.subscribe(), guessesChange$.subscribe(), guessChange$.subscribe());
+        this.subscriptions.add(guessesChange$.subscribe(), guessChange$.subscribe());
     }
 
     /**

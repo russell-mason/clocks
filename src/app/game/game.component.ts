@@ -25,10 +25,10 @@ export class GameComponent implements OnInit, OnDestroy {
     public readonly GameStage = GameStage;
 
     /**
-     * Gets a stream emitting the current stage of the game.
+     * Gets a signal emitting the current stage of the game.
      * As the game progresses different screens are automatically displayed.
      */
-    public readonly currentGameStage$ = this.gameService.currentGameStage$;
+    public readonly currentGameStage = this.gameService.currentGameStage;
 
     /**
      * Initializes the game so it always starts from a known state.

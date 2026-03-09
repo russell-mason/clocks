@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { 
-    HeaderBlockComponent, 
-    CardComponent, 
-    ClockFaceComponent, 
-    FooterBlockComponent, 
+import {
+    HeaderBlockComponent,
+    CardComponent,
+    ClockFaceComponent,
+    FooterBlockComponent,
     SvgImageButtonComponent,
     EnterClickDirective
 } from 'app/shared';
@@ -41,20 +41,20 @@ export class GameMemorizeComponent {
     public readonly next = output();
 
     /**
-     * Gets a stream emitting the currently selected game options.
+     * Gets a signal emitting the currently selected game options.
      */
-    public readonly gameOptions$ = this.gameService.currentGameOptions$;
+    public readonly gameOptions = this.gameService.currentGameOptions;
 
     /**
-     * Gets a stream emitting the times that need to be remembered.
+     * Gets a signal emitting the times that need to be remembered.
      */
-    public readonly times$ = this.gameService.times$;
+    public readonly times = this.gameService.times;
 
     /**
-     * Gets a stream emitting a countdown.
+     * Gets a signal emitting a countdown.
      * This is for display only as the flow of the game is handled in the game service.
      */
-    public readonly countdown$ = this.gameService.commitToMemoryCountdown$;
+    public readonly countdown = this.gameService.commitToMemoryCountdown;
 
     /**
      * Raises the "next" event.
