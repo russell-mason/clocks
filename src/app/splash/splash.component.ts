@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs';
+import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SubSink } from 'subsink';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HeaderBlockComponent } from 'app/shared';
 
 /**
@@ -15,24 +15,18 @@ import { HeaderBlockComponent } from 'app/shared';
     styleUrls: ['./splash.component.scss'],
     imports: [HeaderBlockComponent]
 })
-export class SplashComponent implements OnInit, OnDestroy {
+export class SplashComponent {
     private router = inject(Router);
 
-    private subscriptions = new SubSink();
-
     /**
-     * Starts a timer to automatically navigate to the introduction page.
+     * Creates an instance of SplashComponent.
      */
-    public ngOnInit(): void {
-        const timeout$ = interval(2000).pipe(tap(_ => this.router.navigateByUrl('introduction')));
-
-        this.subscriptions.add(timeout$.subscribe());
-    }
-
-    /**
-     * Clean up reactive subscriptions.
-     */
-    ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
+    constructor() {
+        timer(2000)
+            .pipe(
+                tap(() => this.router.navigateByUrl('introduction')),
+                takeUntilDestroyed()
+            )
+            .subscribe();
     }
 }

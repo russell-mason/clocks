@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStage, GameService } from 'app/shared/game';
 import { GamePendingComponent } from 'app/game-pending/game-pending.component';
@@ -16,8 +16,20 @@ import { ScoresComponent } from 'app/scores/scores.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, GamePendingComponent, GameMemorizeComponent, GameRecallComponent, ScoresComponent]
 })
-export class GameComponent implements OnInit, OnDestroy {
-    private gameService = inject(GameService);
+export class GameComponent {
+    private readonly destroyRef = inject(DestroyRef);
+    private readonly gameService = inject(GameService);
+
+    /**
+     * Creates an instance of GameComponent.
+     */
+    constructor() {
+        // Initializes the game so it always starts from a known state
+        this.gameService.reset();
+
+        // Clean up subscriptions when the component is destroyed
+        this.destroyRef.onDestroy(() => this.gameService.reset());
+    }
 
     /**
      * Type alias for template binding.
@@ -29,20 +41,6 @@ export class GameComponent implements OnInit, OnDestroy {
      * As the game progresses different screens are automatically displayed.
      */
     public readonly currentGameStage = this.gameService.currentGameStage;
-
-    /**
-     * Initializes the game so it always starts from a known state.
-     */
-    public ngOnInit(): void {
-        this.gameService.reset();
-    }
-
-    /**
-     * Clean up reactive subscriptions.
-     */
-    public ngOnDestroy(): void {
-        this.gameService.reset();
-    }
 
     /**
      * Indicates the user is ready to play and times should be displayed for them to memorize.
