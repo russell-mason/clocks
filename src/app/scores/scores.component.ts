@@ -40,14 +40,14 @@ export class ScoresComponent {
     public readonly showTimeoutMessage = input.required<boolean>();
 
     /**
-     * Gets a stream that emits scores for the current game.
+     * Gets a signal that emits scores for the current game.
      */
-    public readonly gameScores$ = this.scoringService.gameScores$;
+    public readonly gameScores = this.scoringService.gameScores;
 
     /**
-     * Gets a stream that emits accumulative scores across all games played.
+     * Gets a signal that emits accumulative scores across all games played.
      */
-    public readonly sessionScore$ = this.scoringService.sessionScore$;
+    public readonly sessionScore = this.scoringService.sessionScore;
 
     /**
      * Resets the game and puts the state back into the pending state.

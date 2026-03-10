@@ -1,5 +1,4 @@
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
 import { GameOptions, DialInterval } from 'app/shared/options';
 import { Time } from 'app/shared/time';
 import { LocalStorageService } from 'app/shared/storage';
@@ -18,18 +17,18 @@ const SCORES_STORAGE_KEY = 'clocks.scores';
 export class ScoringService {
     private localStorageService = inject(LocalStorageService);
 
-    private gameScoresSubject = new BehaviorSubject<GameScore[]>([]);
-    private sessionScoreSubject = new BehaviorSubject<SessionScore>(undefined);
+    private readonly gameScoresSignal = signal<GameScore[] | undefined>(undefined);
+    private readonly sessionScoreSignal = signal<SessionScore | undefined>(undefined);
 
     /**
-     * Gets a stream that emits when the scores for an individual game are updated.
+     * Gets a signal that emits when the scores for an individual game are updated.
      */
-    public readonly gameScores$ = this.gameScoresSubject.asObservable();
+    public readonly gameScores = this.gameScoresSignal.asReadonly();
 
     /**
-     * Gets a stream that emits when the scores for the session are updated.
+     * Gets a signal that emits when the scores for the session are updated.
      */
-    public readonly sessionScore$ = this.sessionScoreSubject.asObservable();
+    public readonly sessionScore = this.sessionScoreSignal.asReadonly();
 
     /**
      * Loads total session scores from local storage.
@@ -38,7 +37,7 @@ export class ScoringService {
     public load(): void {
         const sessionScore = this.getSessionScore();
 
-        this.sessionScoreSubject.next(sessionScore);
+        this.sessionScoreSignal.set(sessionScore);
     }
 
     /**
@@ -53,15 +52,15 @@ export class ScoringService {
 
         this.save(updatedSessionScore);
 
-        this.gameScoresSubject.next(gameScores);
-        this.sessionScoreSubject.next(updatedSessionScore);
+        this.gameScoresSignal.set(gameScores);
+        this.sessionScoreSignal.set(updatedSessionScore);
     }
 
     /**
      * Resets the game scores and emits "undefined".
      */
     public clearGameScores(): void {
-        this.gameScoresSubject.next(undefined);
+        this.gameScoresSignal.set(undefined);
     }
 
     private getSessionScore(): SessionScore {

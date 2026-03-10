@@ -9,13 +9,13 @@
                 </app-card>
             }
 
-            @if (sessionScore$ | async; as sessionScore) {
+            @if (sessionScore(); as sessionScore) {
                 <div class="session-scores">
                     <app-session-score-card [score]="sessionScore"></app-session-score-card>
                 </div>
             }
 
-            @if (gameScores$ | async; as gameScores) {
+            @if (gameScores(); as gameScores) {
                 <div class="game-scores" [ngClass]="true ? 'count-' + gameScores.length.toString() : ''">
                     @for (gameScore of gameScores; track gameScore; let index = $index) {
                         <app-game-score-card [index]="index" [score]="gameScore"> </app-game-score-card>
