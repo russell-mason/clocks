@@ -1,19 +1,9 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    ChangeDetectionStrategy,
-    HostListener,
-    inject,
-    output,
-    viewChild
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostListener, DestroyRef, inject, output, viewChild } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
-import { SubSink } from 'subsink';
+import { tap } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Time } from 'app/shared/time';
 import { GameService } from 'app/shared/game';
 import { GameOptions } from 'app/shared/options';
@@ -52,13 +42,9 @@ interface GuessesForm {
         InitialFocusDirective
     ]
 })
-export class GameRecallComponent implements OnInit, OnDestroy {
+export class GameRecallComponent {
+    private destroyRef = inject(DestroyRef);
     private gameService = inject(GameService);
-
-    private subscriptions: SubSink = new SubSink();
-
-    private guessSubject = new BehaviorSubject<{ index: number; value: string }>(undefined);
-    private guess$ = this.guessSubject.asObservable();
 
     private readonly numberPad = viewChild(NumberPadComponent);
     private readonly initialFocus = viewChild(InitialFocusDirective);
@@ -68,6 +54,21 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      */
     constructor() {
         this.form = this.createForm();
+
+        // Initialize the guesses controls based on the generated times used in the game
+        const guessesControls = this.createGuessesFormControls(this.gameService.times().length);
+
+        guessesControls.forEach(guessesControl => this.form.controls.guesses.push(guessesControl));
+
+        // When a guess changes update the form control with a formatted version of the time
+        this.form.valueChanges
+            .pipe(
+                tap(value => {
+                    this.gameService.updateGuesses(value.guesses);
+                }),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe();
     }
 
     /**
@@ -99,40 +100,6 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      * Gets or sets the index of the currently selected card displaying the clock to be set.
      */
     public selectedIndex = 0;
-
-    /**
-     * Sets up coordination between the form and services.
-     */
-    public ngOnInit(): void {
-        // Initialize the guesses controls based on the generated times used in the game
-        const guessesControls = this.createGuessesFormControls(this.gameService.times().length);
-
-        guessesControls.forEach(guessesControl => this.form.controls.guesses.push(guessesControl));
-
-        // Stream that emits when the form changes so the service can be synchronized
-        const guessesChange$ = this.form.valueChanges.pipe(
-            tap(value => {
-                this.gameService.updateGuesses(value.guesses);
-            })
-        );
-
-        // Stream that emits when a guess changes so the form control can be updated to a formatted version of the time
-        const guessChange$ = this.guess$.pipe(
-            filter(value => !!value),
-            tap(({ index, value }) => {
-                this.form.controls.guesses.controls[index].setValue(value);
-            })
-        );
-
-        this.subscriptions.add(guessesChange$.subscribe(), guessChange$.subscribe());
-    }
-
-    /**
-     * Clean up reactive subscriptions.
-     */
-    public ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
-    }
 
     /**
      * Gets the guess at the index within the form array.
@@ -219,7 +186,7 @@ export class GameRecallComponent implements OnInit, OnDestroy {
      * An attempt is made to convert this to a Time for display.
      */
     public onNumberPadChange(value: string): void {
-        this.guessSubject.next({ index: this.selectedIndex, value });
+        this.form.controls.guesses.controls[this.selectedIndex].setValue(value);
     }
 
     private createForm(): FormGroup<GuessesForm> {
