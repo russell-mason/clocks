@@ -1,22 +1,22 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, inject, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, inject, effect } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
-import { SubSink } from 'subsink';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameOptions, Theme, DialInterval, OptionsService } from 'app/shared/options';
 import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
 import { OptionsCardComponent } from 'app/options-card/options-card.component';
 
 interface GameOptionsForm {
     theme: FormControl<Theme>;
-    numberOfClocks: FormControl<number>,
+    numberOfClocks: FormControl<number>;
     dialOptions: FormGroup<{
-        isTwentyFourHour: FormControl<boolean>,
-        showSecondHand: FormControl<boolean>,
-        dialInterval: FormControl<DialInterval>
-    }>,
-    secondsToDisplay: FormControl<number>,
-    secondsToRespond: FormControl<number>
-};
+        isTwentyFourHour: FormControl<boolean>;
+        showSecondHand: FormControl<boolean>;
+        dialInterval: FormControl<DialInterval>;
+    }>;
+    secondsToDisplay: FormControl<number>;
+    secondsToRespond: FormControl<number>;
+}
 
 /**
  * Component that coordinates the change of options used within the game.
@@ -26,19 +26,35 @@ interface GameOptionsForm {
     templateUrl: './options.component.html',
     styleUrls: ['./options.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ReactiveFormsModule, HeaderBlockComponent, OptionsCardComponent, FooterBlockComponent, SvgImageButtonComponent]
+    imports: [
+        ReactiveFormsModule,
+        HeaderBlockComponent,
+        OptionsCardComponent,
+        FooterBlockComponent,
+        SvgImageButtonComponent
+    ]
 })
-export class OptionsComponent implements OnInit, OnDestroy {
-    private subscriptions = new SubSink();
+export class OptionsComponent {
+    private destroyRef = inject(DestroyRef);
     private optionsService: OptionsService = inject(OptionsService);
 
-    private syncGameOptions = effect(() =>  this.modelToForm(this.optionsService.gameOptions()));
+    private syncGameOptions = effect(() => this.modelToForm(this.optionsService.gameOptions()));
 
     /**
      * Creates an instance of OptionsComponent.
      */
     constructor() {
         this.form = this.createForm();
+
+        this.optionsService.load();
+
+        // Coordinates synchronization between user input and the underlying options
+        this.form.valueChanges
+            .pipe(
+                tap(_ => this.formToModel()),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe();
     }
 
     /**
@@ -60,24 +76,6 @@ export class OptionsComponent implements OnInit, OnDestroy {
      * Gets the form containing user inputs.
      */
     public readonly form: FormGroup<GameOptionsForm>;
-
-    /**
-     * Coordinates synchronization between user input and the underlying options.
-     */
-    public ngOnInit(): void {
-        this.optionsService.load();
-
-        const formChange$ = this.form.valueChanges.pipe(tap(_ => this.formToModel()));
-
-        this.subscriptions.add(formChange$.subscribe());
-    }
-
-    /**
-     * Clean up reactive subscriptions.
-     */
-    public ngOnDestroy(): void {
-        this.subscriptions.unsubscribe();
-    }
 
     private createForm(): FormGroup<GameOptionsForm> {
         return new FormGroup<GameOptionsForm>({
