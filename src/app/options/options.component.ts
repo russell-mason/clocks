@@ -3,6 +3,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameOptions, Theme, DialInterval, OptionsService } from 'app/shared/options';
+import { ScoringService } from 'app/shared/game';
 import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
 import { OptionsCardComponent } from 'app/options-card/options-card.component';
 
@@ -37,6 +38,7 @@ interface GameOptionsForm {
 export class OptionsComponent {
     private destroyRef = inject(DestroyRef);
     private optionsService: OptionsService = inject(OptionsService);
+    private scoringService: ScoringService = inject(ScoringService);
 
     private syncGameOptions = effect(() => this.modelToForm(this.optionsService.gameOptions()));
 
@@ -76,6 +78,19 @@ export class OptionsComponent {
      * Gets the form containing user inputs.
      */
     public readonly form: FormGroup<GameOptionsForm>;
+
+    /**
+     * Indicates whether all scores have been reset.
+     */
+    public scoresReset = false;
+
+    /**
+     * Resets all scores and updates local storage.
+     */
+    public resetScores(): void {
+        this.scoringService.clearSessionScores();
+        this.scoresReset = true;
+    }
 
     private createForm(): FormGroup<GameOptionsForm> {
         return new FormGroup<GameOptionsForm>({

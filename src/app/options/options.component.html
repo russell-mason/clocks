@@ -125,6 +125,17 @@
                         </ul>
                     </app-options-card>
                 </li>
+                <li>
+                    <app-options-card heading="Scores">
+                        <div class="scores-reset">
+                            @if (!scoresReset) {
+                                <button type="button" (click)="resetScores()">Reset all scores to zero</button>
+                            } @else {
+                                <span>All scores have been reset to zero.</span>
+                            }
+                        </div>
+                    </app-options-card>
+                </li>
             </ul>
         </form>
     </section>

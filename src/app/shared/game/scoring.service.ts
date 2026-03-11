@@ -63,6 +63,14 @@ export class ScoringService {
         this.gameScoresSignal.set(undefined);
     }
 
+    /**
+     * Resets all session scores, saves them to local storage, and then emits the changes.
+     */
+    public clearSessionScores(): void {
+        this.save(defaultSessionScore);
+        this.load();
+    }
+
     private getSessionScore(): SessionScore {
         const sessionScore = this.localStorageService.getObject(SCORES_STORAGE_KEY, defaultSessionScore);
 

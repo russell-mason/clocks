@@ -54,6 +54,17 @@ ul {
     display: inline-block;
 }
 
+.scores-reset {
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+        color: $secondary-background-color;
+    }
+}
+
 @include for-viewports($tablet-landscape, $tablet-plus-landscape, $desktop, $desktop-hd, $desktop-4k) {
     ul li {
         font-size: inherit;
