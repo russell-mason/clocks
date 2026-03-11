@@ -18,12 +18,10 @@
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": {
-                          "base": "dist/games/clocks"
+                            "base": "dist/games/clocks"
                         },
                         "index": "src/index.html",
-                        "polyfills": [
-                          "src/polyfills.ts"
-                        ],
+                        "polyfills": ["src/polyfills.ts"],
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
                         "assets": [
@@ -40,19 +38,12 @@
                             "src/assets",
                             "src/unsupported.html"
                         ],
-                        "styles": [
-                            "src/styles/normalize.css",
-                            "src/styles/global.scss"
-                        ],
+                        "styles": ["src/styles/normalize.css", "src/styles/global.scss"],
                         "scripts": [],
-                        "allowedCommonJsDependencies": [
-                            "subsink"
-                        ],
+                        "allowedCommonJsDependencies": [],
                         "browser": "src/main.ts",
                         "stylePreprocessorOptions": {
-                          "includePaths": [
-                            "."
-                          ]
+                            "includePaths": ["."]
                         }
                     },
                     "configurations": {
@@ -86,18 +77,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                      "buildTarget": "clocks:build"
+                        "buildTarget": "clocks:build"
                     },
                     "configurations": {
                         "production": {
-                          "buildTarget": "clocks:build:production"
+                            "buildTarget": "clocks:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                      "buildTarget": "clocks:build"
+                        "buildTarget": "clocks:build"
                     }
                 },
                 "test": {
@@ -107,14 +98,8 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles/normalize.css",
-                            "src/styles/global.scss"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles/normalize.css", "src/styles/global.scss"],
                         "scripts": []
                     }
                 },
@@ -134,29 +119,29 @@
         }
     },
     "schematics": {
-      "@schematics/angular:component": {
-        "type": "component"
-      },
-      "@schematics/angular:directive": {
-        "type": "directive"
-      },
-      "@schematics/angular:service": {
-        "type": "service"
-      },
-      "@schematics/angular:guard": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:interceptor": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:module": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:pipe": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:resolver": {
-        "typeSeparator": "."
-      }
+        "@schematics/angular:component": {
+            "type": "component"
+        },
+        "@schematics/angular:directive": {
+            "type": "directive"
+        },
+        "@schematics/angular:service": {
+            "type": "service"
+        },
+        "@schematics/angular:guard": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:module": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:pipe": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+            "typeSeparator": "."
+        }
     }
 }
