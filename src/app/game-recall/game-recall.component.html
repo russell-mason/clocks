@@ -3,11 +3,7 @@
 
     <section class="content">
         <form [formGroup]="form">
-            <div
-                formArrayName="guesses"
-                class="layout"
-                [ngClass]="true ? 'count-' + form.controls.guesses.controls.length.toString() : ''"
-            >
+            <div [class]="`layout count-${form.controls.guesses.controls.length}`">
                 @if (gameOptions(); as gameOptions) {
                     <div class="cards-layout">
                         @for (guess of form.controls.guesses.controls; track guess; let index = $index) {

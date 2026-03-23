@@ -1,9 +1,9 @@
 @switch (currentGameStage()) {
     @case (GameStage.pending) {
-        <app-game-pending (next)="startCommitToMemoryCountdown()"> </app-game-pending>
+        <app-game-pending (next)="startCommitToMemoryCountdown()"></app-game-pending>
     }
     @case (GameStage.commitToMemoryCountdown) {
-        <app-game-memorize (next)="startRecallCountdown()"> </app-game-memorize>
+        <app-game-memorize (next)="startRecallCountdown()"></app-game-memorize>
     }
     @case (GameStage.recallCountdown) {
         <app-game-recall (next)="score()"></app-game-recall>

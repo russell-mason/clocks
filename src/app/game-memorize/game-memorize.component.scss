@@ -1,9 +1,6 @@
 @use 'src/styles/sizes' as *;
 @use 'src/styles/viewports' as *;
 
-$card-margin-small: 5px;
-$card-margin-large: 8px;
-
 @mixin game-memorize-layout($wrap-width) {
     .layout {
         max-width: $wrap-width;

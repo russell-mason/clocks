@@ -33,7 +33,7 @@ import { GameService } from 'app/shared/game';
     ]
 })
 export class GameMemorizeComponent {
-    private gameService = inject(GameService);
+    private readonly gameService = inject(GameService);
 
     /**
      * Occurs when the "next" button is clicked.

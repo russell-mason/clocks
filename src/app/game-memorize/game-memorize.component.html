@@ -4,7 +4,7 @@
     <section class="content">
         @if (gameOptions(); as gameOptions) {
             @if (times(); as times) {
-                <div class="layout" [ngClass]="true ? 'count-' + times.length.toString() : ''">
+                <div [class]="`layout count-${times.length}`">
                     @for (time of times; track time; let index = $index) {
                         <app-card [index]="index + 1">
                             <app-clock-face [time]="time" [dialOptions]="gameOptions.dialOptions"> </app-clock-face>
