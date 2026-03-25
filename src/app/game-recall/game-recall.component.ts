@@ -1,8 +1,5 @@
-import { Component, ChangeDetectionStrategy, DestroyRef, inject, output, viewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, output, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { tap } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Time } from 'app/shared/time';
 import { GameService } from 'app/shared/game';
 import { GameOptions } from 'app/shared/options';
@@ -18,10 +15,6 @@ import {
     EnterClickDirective
 } from 'app/shared';
 
-interface GuessesForm {
-    guesses: FormArray<FormControl<string>>;
-}
-
 /**
  * Component allowing the user to enter their guesses.
  */
@@ -33,7 +26,6 @@ interface GuessesForm {
     host: { '(document:keyup)': 'onDocumentKeyupForCardSelect($event)' },
     imports: [
         CommonModule,
-        ReactiveFormsModule,
         HeaderBlockComponent,
         CardComponent,
         ClockFaceComponent,
@@ -45,33 +37,19 @@ interface GuessesForm {
     ]
 })
 export class GameRecallComponent {
-    private destroyRef = inject(DestroyRef);
     private gameService = inject(GameService);
 
     private readonly numberPad = viewChild(NumberPadComponent);
     private readonly initialFocus = viewChild(InitialFocusDirective);
 
-    /**
-     * Creates an instance of GameRecallComponent.
-     */
     constructor() {
-        this.form = this.createForm();
-
-        // Initialize the guesses controls based on the generated times used in the game
-        const guessesControls = this.createGuessesFormControls(this.gameService.times().length);
-
-        guessesControls.forEach(guessesControl => this.form.controls.guesses.push(guessesControl));
-
-        // When a guess changes update the form control with a formatted version of the time
-        this.form.valueChanges
-            .pipe(
-                tap(value => {
-                    this.gameService.updateGuesses(value.guesses);
-                }),
-                takeUntilDestroyed(this.destroyRef)
-            )
-            .subscribe();
+        this.guesses.set(Array.from({ length: this.gameService.times().length }, () => ''));
     }
+
+    /**
+     * User guesses for each time as a raw string, e.g. 101525, stored in the same order as generated times.
+     */
+    public readonly guesses = signal<string[]>([]);
 
     /**
      * Type alias for template binding.
@@ -94,18 +72,13 @@ export class GameRecallComponent {
     public readonly countdown = this.gameService.recallCountdown;
 
     /**
-     * Gets the form containing user input.
-     */
-    public readonly form: FormGroup<GuessesForm>;
-
-    /**
      * Gets or sets the index of the currently selected card displaying the clock to be set.
      */
     public selectedIndex = 0;
 
     /**
-     * Gets the guess at the index within the form array.
-     * Stored as a raw string, e.g. 101525, is then converted to a time, e.g. 10:15:25.
+     * Gets the guess at the specified index.
+     * Stored as a raw string, e.g. 101525, and then converted to a time, e.g. 10:15:25.
      *
      * @param index The index of the guess to get.
      * @returns The guess represented as a Time.
@@ -117,17 +90,17 @@ export class GameRecallComponent {
     }
 
     /**
-     * Gets the guess at the index within the form array. Stored as a raw string, e.g. 101525.
+     * Gets the guess at the specified index. Stored as a raw string, e.g. 101525.
      *
      * @param index The index of the guess to get.
      * @returns The guess represented as a raw string.
      */
     public getGuess(index: number): string {
-        return this.form.controls.guesses.controls[index].value;
+        return this.guesses()[index] ?? '';
     }
 
     /**
-     * Gets the guess at the index within the form array, formatted use the specified options.
+     * Gets the guess at the specified index, formatted using the specified options.
      * Stored as a raw string, e.g. 1015 or 101525, is formatted as a string, e.g. 10:15, or 10:15:25, depending
      * on whether the option includes seconds.
      *
@@ -150,15 +123,6 @@ export class GameRecallComponent {
     }
 
     /**
-     * Intercept ctrl keys 1-4 and selects the card with the corresponding tab index.
-     *
-     * @param index The index of the card to select.
-     */
-    public onKeySelectedIndexChange(index: number) {
-        this.onSelectedIndexChange(index);
-    }
-
-    /**
      * Coordinates switching between clocks and ensures the number pad reflects, and updates, the currently one.
      * Automatically resets focus back to the number pad.
      *
@@ -168,39 +132,24 @@ export class GameRecallComponent {
     public onSelectedIndexChange(index: number) {
         this.selectedIndex = index;
 
-        this.numberPad().setValue(this.form.controls.guesses.controls[index].value);
+        this.numberPad().setValue(this.guesses()[index] ?? '');
 
         // Automatically reset focus back to the number pad
         this.initialFocus().reset();
     }
 
     /**
-     * Coordinates user input and the underlying form containing guesses for the game.
-     *
-     * @param index The index of the pad being used.
-     * There may be multiple number pads on screen at the same time so this distinguishes between them.
+     * Coordinates user input and the underlying guesses for the game.
      *
      * @param value The value entered on the pad.
      * An attempt is made to convert this to a Time for display.
      */
     public onNumberPadChange(value: string): void {
-        this.form.controls.guesses.controls[this.selectedIndex].setValue(value);
-    }
+        this.guesses.update(guesses =>
+            guesses.map((current, index) => (index === this.selectedIndex ? value : current))
+        );
 
-    private createForm(): FormGroup<GuessesForm> {
-        return new FormGroup<GuessesForm>({
-            guesses: new FormArray<FormControl<string>>([])
-        });
-    }
-
-    private createGuessesFormControls(count: number): FormControl<string>[] {
-        const controlArray: FormControl<string>[] = [];
-
-        for (let index = 0; index < count; index++) {
-            controlArray.push(new FormControl(''));
-        }
-
-        return controlArray;
+        this.gameService.updateGuesses(this.guesses());
     }
 
     protected onDocumentKeyupForCardSelect(event: KeyboardEvent): void {
@@ -210,13 +159,13 @@ export class GameRecallComponent {
         if (!event.altKey) return;
 
         const index = GameRecallComponent.altDigitToIndex[event.code];
-        const count = this.form.controls.guesses.controls.length;
+        const count = this.guesses().length;
 
         if (index === undefined || index >= count) return;
 
         event.preventDefault();
 
-        this.onKeySelectedIndexChange(index);
+        this.onSelectedIndexChange(index);
     }
 
     private static readonly altDigitToIndex: Record<string, number> = {

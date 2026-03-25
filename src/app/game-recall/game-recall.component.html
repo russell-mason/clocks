@@ -2,40 +2,35 @@
     <app-header-block heading="RECALL"></app-header-block>
 
     <section class="content">
-        <form [formGroup]="form">
-            <div [class]="`layout count-${form.controls.guesses.controls.length}`">
-                @if (gameOptions(); as gameOptions) {
-                    <div class="cards-layout">
-                        @for (guess of form.controls.guesses.controls; track guess; let index = $index) {
-                            <app-card
-                                [index]="index + 1"
-                                [isSelected]="index === selectedIndex"
-                                (click)="onSelectedIndexChange(index)"
-                            >
-                                <div class="clock-time">
-                                    <app-clock-face
-                                        [time]="getGuessTime(index)"
-                                        [dialOptions]="gameOptions.dialOptions"
-                                    >
-                                    </app-clock-face>
+        <div [class]="`layout count-${guesses().length}`">
+            @if (gameOptions(); as gameOptions) {
+                <div class="cards-layout">
+                    @for (_ of guesses(); track index; let index = $index) {
+                        <app-card
+                            [index]="index + 1"
+                            [isSelected]="index === selectedIndex"
+                            (click)="onSelectedIndexChange(index)"
+                        >
+                            <div class="clock-time">
+                                <app-clock-face [time]="getGuessTime(index)" [dialOptions]="gameOptions.dialOptions">
+                                </app-clock-face>
 
-                                    <p class="time">&nbsp;{{ getFormattedGuess(index, gameOptions) }}&nbsp;</p>
-                                </div>
-                            </app-card>
-                        }
-                    </div>
+                                <p class="time">&nbsp;{{ getFormattedGuess(index, gameOptions) }}&nbsp;</p>
+                            </div>
+                        </app-card>
+                    }
+                </div>
 
-                    <app-number-pad
-                        appInitialFocus=".layout"
-                        [displayValue]="getGuess(selectedIndex)"
-                        [displayValueAccepted]="!!getGuessTime(selectedIndex)"
-                        [maxLength]="gameOptions.dialOptions.showSecondHand ? 6 : 4"
-                        (valueChanged)="onNumberPadChange($event)"
-                    >
-                    </app-number-pad>
-                }
-            </div>
-        </form>
+                <app-number-pad
+                    appInitialFocus=".layout"
+                    [displayValue]="getGuess(selectedIndex)"
+                    [displayValueAccepted]="!!getGuessTime(selectedIndex)"
+                    [maxLength]="gameOptions.dialOptions.showSecondHand ? 6 : 4"
+                    (valueChanged)="onNumberPadChange($event)"
+                >
+                </app-number-pad>
+            }
+        </div>
     </section>
 
     <app-footer-block heading="{{ countdown() }} seconds remaining">
