@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { HeaderBlockComponent, SvgImageButtonComponent, FooterBlockComponent } from 'app/shared';
+import { HeaderBlockComponent, SvgImageButtonComponent, FooterBlockComponent, EnterClickDirective } from 'app/shared';
 import { OptionsCardComponent } from 'app/options-card/options-card.component';
 
 /**
@@ -11,6 +11,12 @@ import { OptionsCardComponent } from 'app/options-card/options-card.component';
     templateUrl: './introduction.component.html',
     styleUrls: ['./introduction.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [HeaderBlockComponent, OptionsCardComponent, FooterBlockComponent, SvgImageButtonComponent]
+    imports: [
+        HeaderBlockComponent,
+        OptionsCardComponent,
+        FooterBlockComponent,
+        SvgImageButtonComponent,
+        EnterClickDirective
+    ]
 })
 export class IntroductionComponent {}

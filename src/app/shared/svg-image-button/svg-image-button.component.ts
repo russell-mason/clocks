@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, inject, input, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Icon } from './icon';
 
@@ -9,9 +9,13 @@ import { Icon } from './icon';
     selector: 'app-svg-image-button',
     templateUrl: './svg-image-button.component.html',
     styleUrls: ['./svg-image-button.component.scss'],
+    host: { '(click)': 'onHostClick($event)' },
     imports: [RouterModule]
 })
 export class SvgImageButtonComponent {
+    private readonly host = inject(ElementRef<HTMLElement>);
+    private readonly rootButton = viewChild.required<ElementRef<HTMLButtonElement>>('rootButton');
+
     /**
      * Gets or sets the type of icon to display.
      */
@@ -30,4 +34,11 @@ export class SvgImageButtonComponent {
      * standard "click" event.
      */
     public readonly routerLink = input<string>();
+
+    protected onHostClick(event: MouseEvent): void {
+        // Pass the click through to the real button
+        if (this.routerLink() !== undefined && event.target === this.host.nativeElement) {
+            this.rootButton().nativeElement.click();
+        }
+    }
 }

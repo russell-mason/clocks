@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GameOptions, Theme, DialInterval, OptionsService } from 'app/shared/options';
 import { ScoringService } from 'app/shared/game';
-import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
+import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent, EnterClickDirective } from 'app/shared';
 import { OptionsCardComponent } from 'app/options-card/options-card.component';
 
 interface GameOptionsForm {
@@ -32,7 +32,8 @@ interface GameOptionsForm {
         HeaderBlockComponent,
         OptionsCardComponent,
         FooterBlockComponent,
-        SvgImageButtonComponent
+        SvgImageButtonComponent,
+        EnterClickDirective
     ]
 })
 export class OptionsComponent {

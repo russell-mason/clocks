@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostBinding, input, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 /**
  * Component that represents a simple visual container with custom content.
@@ -8,15 +8,10 @@ import { Component, ChangeDetectionStrategy, HostBinding, input, effect } from '
     selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { '[class.selected]': 'isSelected()' }
 })
 export class CardComponent {
-    // For HostBinding synchronization
-    private syncIsSelected = effect(() => (this.hasSelectedClass = this.isSelected()));
-
-    @HostBinding('class.selected')
-    public hasSelectedClass = false;
-
     /**
      * Gets or sets whether the card is selected. When true a visual cue is displayed.
      */

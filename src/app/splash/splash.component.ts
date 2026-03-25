@@ -1,8 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { timer } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HeaderBlockComponent } from 'app/shared';
 
 /**
@@ -16,17 +13,17 @@ import { HeaderBlockComponent } from 'app/shared';
     imports: [HeaderBlockComponent]
 })
 export class SplashComponent {
+    private destroyRef = inject(DestroyRef);
     private router = inject(Router);
 
     /**
      * Creates an instance of SplashComponent.
      */
     constructor() {
-        timer(2000)
-            .pipe(
-                tap(() => this.router.navigateByUrl('introduction')),
-                takeUntilDestroyed()
-            )
-            .subscribe();
+        const id = window.setTimeout(() => {
+            void this.router.navigateByUrl('introduction');
+        }, 2000);
+
+        this.destroyRef.onDestroy(() => clearTimeout(id));
     }
 }

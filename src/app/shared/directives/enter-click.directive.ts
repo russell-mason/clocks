@@ -1,4 +1,4 @@
-import { Directive, HostListener, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 
 /**
  * Intercepts keyboard input to allow the enter key to act as a click.
@@ -9,7 +9,8 @@ import { Directive, HostListener, ElementRef, inject } from '@angular/core';
  */
 @Directive({
     standalone: true,
-    selector: '[appEnterClick]'
+    selector: '[appEnterClick]',
+    host: { '(document:keyup.enter)': 'handleDocumentKeyup()' }
 })
 export class EnterClickDirective {
     private element = inject(ElementRef);
@@ -17,7 +18,6 @@ export class EnterClickDirective {
     /**
      * Listens to the enter key on the document and translates it into a click event on the associated element.
      */
-    @HostListener('document:keyup.enter')
     public handleDocumentKeyup(): void {
         this.element.nativeElement.click();
     }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostListener, DestroyRef, inject, output, viewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, inject, output, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
@@ -14,7 +14,8 @@ import {
     ClockFaceComponent,
     FooterBlockComponent,
     SvgImageButtonComponent,
-    InitialFocusDirective
+    InitialFocusDirective,
+    EnterClickDirective
 } from 'app/shared';
 
 interface GuessesForm {
@@ -29,6 +30,7 @@ interface GuessesForm {
     templateUrl: './game-recall.component.html',
     styleUrls: ['./game-recall.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { '(document:keyup)': 'onDocumentKeyupForCardSelect($event)' },
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -38,7 +40,8 @@ interface GuessesForm {
         NumberPadComponent,
         FooterBlockComponent,
         SvgImageButtonComponent,
-        InitialFocusDirective
+        InitialFocusDirective,
+        EnterClickDirective
     ]
 })
 export class GameRecallComponent {
@@ -151,10 +154,6 @@ export class GameRecallComponent {
      *
      * @param index The index of the card to select.
      */
-    @HostListener('document:keyup.control.1', ['0'])
-    @HostListener('document:keyup.control.2', ['1'])
-    @HostListener('document:keyup.control.3', ['2'])
-    @HostListener('document:keyup.control.4', ['3'])
     public onKeySelectedIndexChange(index: number) {
         this.onSelectedIndexChange(index);
     }
@@ -203,4 +202,27 @@ export class GameRecallComponent {
 
         return controlArray;
     }
+
+    protected onDocumentKeyupForCardSelect(event: KeyboardEvent): void {
+        // To ensure consistency between Windows and Mac, uses Alt/Option + top-row 1–4 to select cards
+        // document:keyup.alt.1 host binding don't work on Mac, so handled directly from base event
+
+        if (!event.altKey) return;
+
+        const index = GameRecallComponent.altDigitToIndex[event.code];
+        const count = this.form.controls.guesses.controls.length;
+
+        if (index === undefined || index >= count) return;
+
+        event.preventDefault();
+
+        this.onKeySelectedIndexChange(index);
+    }
+
+    private static readonly altDigitToIndex: Record<string, number> = {
+        Digit1: 0,
+        Digit2: 1,
+        Digit3: 2,
+        Digit4: 3
+    };
 }

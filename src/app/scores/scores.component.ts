@@ -1,7 +1,15 @@
 import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService, ScoringService } from 'app/shared/game';
-import { CardComponent, HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
+
+import {
+    CardComponent,
+    HeaderBlockComponent,
+    FooterBlockComponent,
+    SvgImageButtonComponent,
+    EnterClickDirective
+} from 'app/shared';
+
 import { SessionScoreCardComponent } from 'app/session-score-card/session-score-card.component';
 import { GameScoreCardComponent } from 'app/game-score-card/game-score-card.component';
 
@@ -20,7 +28,8 @@ import { GameScoreCardComponent } from 'app/game-score-card/game-score-card.comp
         SessionScoreCardComponent,
         GameScoreCardComponent,
         FooterBlockComponent,
-        SvgImageButtonComponent
+        SvgImageButtonComponent,
+        EnterClickDirective
     ]
 })
 export class ScoresComponent {

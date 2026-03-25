@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, AfterViewInit, inject } from '@angular/core';
+import { Directive, ElementRef, afterNextRender, inject } from '@angular/core';
 
 /**
  * List of available viewport sizes and names (used as class names).
@@ -40,23 +40,21 @@ const viewportSizes = [
  */
 @Directive({
     standalone: true,
-    selector: '[appTrackViewport]'
+    selector: '[appTrackViewport]',
+    host: { '(window:resize)': 'handleElementOnResize()' }
 })
-export class TrackViewportDirective implements AfterViewInit {
+export class TrackViewportDirective {
     private element = inject(ElementRef);
 
-    /**
-     * Sets the class once the full view is available.
-     */
-    public ngAfterViewInit(): void {
-        this.setViewportClass();
+    constructor() {
+        // Sets the class once the full view is available.
+        afterNextRender(() => this.setViewportClass());
     }
 
     /**
-     *  Sets the class ever time the window changes size.
+     *  Sets the class every time the window changes size.
      */
-    @HostListener('window:resize', ['$event'])
-    public handleElementOnResize(event: any): void {
+    public handleElementOnResize(): void {
         this.setViewportClass();
     }
 

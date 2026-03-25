@@ -1,4 +1,4 @@
-import { Directive, ElementRef, AfterViewInit, inject, input } from '@angular/core';
+import { Directive, ElementRef, afterNextRender, inject, input } from '@angular/core';
 
 /**
  * Sets focus to the associated element, or child element, as specified by a CSS selector.
@@ -17,21 +17,19 @@ import { Directive, ElementRef, AfterViewInit, inject, input } from '@angular/co
     standalone: true,
     selector: '[appInitialFocus]'
 })
-export class InitialFocusDirective implements AfterViewInit {
+export class InitialFocusDirective {
     private element = inject(ElementRef);
+
+    constructor() {
+        // Sets focus once the full view is available
+        afterNextRender(() => this.reset());
+    }
 
     /**
      * Relative CSS selector to the element to set focus to.
      * If not specified, sets focus to the element the directive is associated with.
      */
     public readonly appInitialFocus = input.required<string>();
-
-    /**
-     * Sets focus once the full view is available.
-     */
-    public ngAfterViewInit(): void {
-        this.reset();
-    }
 
     /**
      * Resets focus to the associated selector element.

@@ -1,4 +1,4 @@
-import { Component, HostListener, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 
 /**
  * Component that represents a simple number pad and display.
@@ -11,7 +11,8 @@ import { Component, HostListener, ChangeDetectionStrategy, input, output } from 
     selector: 'app-number-pad',
     templateUrl: './number-pad.component.html',
     styleUrls: ['./number-pad.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { '(keydown)': 'handleKeyup($event)' }
 })
 export class NumberPadComponent {
     private value = '';
@@ -48,7 +49,6 @@ export class NumberPadComponent {
      *
      * @param event The key event to handle.
      */
-    @HostListener('keydown', ['$event'])
     public handleKeyup(event: KeyboardEvent): void {
         // Ignore if command keys are down, e.g. Ctrl-2 should not been seen as 2
         if (event.ctrlKey || event.altKey || event.getModifierState('AltGraph')) {

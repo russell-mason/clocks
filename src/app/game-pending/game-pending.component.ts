@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, output } from '@angular/core';
-import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } from 'app/shared';
+import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent, EnterClickDirective } from 'app/shared';
 
 /**
  * Component that represents a pause allowing the user to start the game when they're ready.
@@ -8,7 +8,7 @@ import { HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent } f
     selector: 'app-game-pending',
     templateUrl: './game-pending.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent]
+    imports: [HeaderBlockComponent, FooterBlockComponent, SvgImageButtonComponent, EnterClickDirective]
 })
 export class GamePendingComponent {
     /**
